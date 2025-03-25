@@ -1,0 +1,433 @@
+<!-- Teacher Classes Page -->
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">My Classes</h5>
+                    <div>
+                        <button type="button" class="btn btn-outline-primary" id="export-class-btn">
+                            <i class="fas fa-file-export me-1"></i> Export Class List
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-md-4 mb-3">
+                            <div class="card border-left-primary shadow h-100">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Total Classes
+                                            </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="total-classes">3</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-chalkboard fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="card border-left-success shadow h-100">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                Total Students
+                                            </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="total-students">84</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-user-graduate fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="card border-left-info shadow h-100">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                                Average Attendance
+                                            </div>
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col-auto">
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" id="avg-attendance">91%</div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="progress progress-sm mr-2">
+                                                        <div class="progress-bar bg-info" role="progressbar" style="width: 91%" aria-valuenow="91" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-clipboard-check fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Class</th>
+                                            <th>Subject</th>
+                                            <th>Schedule</th>
+                                            <th>Room</th>
+                                            <th>Students</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="class-table-body">
+                                        <tr>
+                                            <td>X-A</td>
+                                            <td>Mathematics</td>
+                                            <td>Mon, Wed, Fri (8:30 - 9:30 AM)</td>
+                                            <td>Room 101</td>
+                                            <td>30</td>
+                                            <td>
+                                                <button type="button" class="btn btn-sm btn-primary me-1" data-action="view-students" data-class="X-A" data-subject="Mathematics">
+                                                    <i class="fas fa-users me-1"></i> View Students
+                                                </button>
+                                                <button type="button" class="btn btn-sm btn-outline-success me-1" data-action="take-attendance" data-class="X-A" data-subject="Mathematics">
+                                                    <i class="fas fa-clipboard-check me-1"></i> Attendance
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>X-B</td>
+                                            <td>Mathematics</td>
+                                            <td>Mon, Wed, Fri (9:30 - 10:30 AM)</td>
+                                            <td>Room 102</td>
+                                            <td>29</td>
+                                            <td>
+                                                <button type="button" class="btn btn-sm btn-primary me-1" data-action="view-students" data-class="X-B" data-subject="Mathematics">
+                                                    <i class="fas fa-users me-1"></i> View Students
+                                                </button>
+                                                <button type="button" class="btn btn-sm btn-outline-success me-1" data-action="take-attendance" data-class="X-B" data-subject="Mathematics">
+                                                    <i class="fas fa-clipboard-check me-1"></i> Attendance
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>XI-A</td>
+                                            <td>Physics</td>
+                                            <td>Tue, Thu (11:00 - 12:00 PM)</td>
+                                            <td>Lab 1</td>
+                                            <td>25</td>
+                                            <td>
+                                                <button type="button" class="btn btn-sm btn-primary me-1" data-action="view-students" data-class="XI-A" data-subject="Physics">
+                                                    <i class="fas fa-users me-1"></i> View Students
+                                                </button>
+                                                <button type="button" class="btn btn-sm btn-outline-success me-1" data-action="take-attendance" data-class="XI-A" data-subject="Physics">
+                                                    <i class="fas fa-clipboard-check me-1"></i> Attendance
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Class Distribution</h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="classDistributionChart" width="400" height="300"></canvas>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Attendance Overview</h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="attendanceOverviewChart" width="400" height="300"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- View Students Modal -->
+<div class="modal fade" id="viewStudentsModal" tabindex="-1" aria-labelledby="viewStudentsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="viewStudentsModalLabel">Students List: X-A (Mathematics)</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Roll No</th>
+                                <th>Gender</th>
+                                <th>Attendance %</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="student-list-body">
+                            <!-- Student rows will be added dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="print-student-list-btn">
+                    <i class="fas fa-print me-2"></i> Print
+                </button>
+                <button type="button" class="btn btn-success" id="export-student-list-btn">
+                    <i class="fas fa-file-export me-2"></i> Export
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Script for Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Initialize charts when the page is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        // Class Distribution Chart
+        const classDistributionCtx = document.getElementById('classDistributionChart').getContext('2d');
+        new Chart(classDistributionCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['X-A', 'X-B', 'XI-A'],
+                datasets: [{
+                    data: [30, 29, 25],
+                    backgroundColor: [
+                        '#4e73df',
+                        '#1cc88a',
+                        '#36b9cc'
+                    ],
+                    hoverBackgroundColor: [
+                        '#2e59d9',
+                        '#17a673',
+                        '#2c9faf'
+                    ],
+                    hoverBorderColor: "rgba(234, 236, 244, 1)",
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    },
+                    title: {
+                        display: true,
+                        text: 'Students per Class'
+                    }
+                },
+                cutout: '70%',
+            }
+        });
+        
+        // Attendance Overview Chart
+        const attendanceOverviewCtx = document.getElementById('attendanceOverviewChart').getContext('2d');
+        new Chart(attendanceOverviewCtx, {
+            type: 'bar',
+            data: {
+                labels: ['X-A', 'X-B', 'XI-A'],
+                datasets: [{
+                    label: 'Attendance Rate (%)',
+                    data: [93, 90, 88],
+                    backgroundColor: [
+                        'rgba(78, 115, 223, 0.8)',
+                        'rgba(28, 200, 138, 0.8)',
+                        'rgba(54, 185, 204, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgba(78, 115, 223, 1)',
+                        'rgba(28, 200, 138, 1)',
+                        'rgba(54, 185, 204, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        min: 70,
+                        max: 100,
+                        title: {
+                            display: true,
+                            text: 'Percentage (%)'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Class'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    title: {
+                        display: true,
+                        text: 'Class-wise Attendance Rate'
+                    }
+                }
+            }
+        });
+    });
+
+    // Setup event listeners for buttons
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get all buttons with data-action attribute
+        const actionButtons = document.querySelectorAll('[data-action]');
+        
+        // Add click event listener to each button
+        actionButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const action = this.getAttribute('data-action');
+                const className = this.getAttribute('data-class');
+                const subject = this.getAttribute('data-subject');
+                
+                if (action === 'view-students') {
+                    // Update modal title
+                    document.getElementById('viewStudentsModalLabel').textContent = `Students List: ${className} (${subject})`;
+                    
+                    // Get students for the class
+                    getStudentsForClass(className);
+                    
+                    // Show modal
+                    const modal = new bootstrap.Modal(document.getElementById('viewStudentsModal'));
+                    modal.show();
+                } else if (action === 'take-attendance') {
+                    // Handle take attendance action
+                    // This would typically navigate to the attendance page
+                    // or show the attendance modal for the class
+                    
+                    // For now, let's redirect to the attendance page
+                    const attendanceMenuItem = document.querySelector('.menu-item[data-page="attendance"]');
+                    if (attendanceMenuItem) {
+                        attendanceMenuItem.click();
+                        
+                        // We would ideally set the class and subject in the form
+                        // after the attendance page is loaded
+                        setTimeout(() => {
+                            const classSelect = document.getElementById('attendance-class');
+                            const subjectSelect = document.getElementById('attendance-subject');
+                            
+                            if (classSelect) classSelect.value = className;
+                            if (subjectSelect) subjectSelect.value = subject;
+                        }, 500);
+                    }
+                }
+            });
+        });
+    });
+
+    // Function to get students for a class (mock data for now)
+    function getStudentsForClass(className) {
+        // In a real implementation, this would fetch data from the backend
+        // For now, let's use mock data
+        const studentListBody = document.getElementById('student-list-body');
+        if (!studentListBody) return;
+        
+        // Clear previous data
+        studentListBody.innerHTML = '';
+        
+        // Create mock student data based on the class
+        const studentCount = className === 'X-A' ? 30 : (className === 'X-B' ? 29 : 25);
+        
+        for (let i = 1; i <= studentCount; i++) {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${i}</td>
+                <td>Student ${i}</td>
+                <td>${className}-${i.toString().padStart(2, '0')}</td>
+                <td>${i % 2 === 0 ? 'Male' : 'Female'}</td>
+                <td>
+                    <div class="progress" style="height: 6px;">
+                        <div class="progress-bar bg-${getRandomAttendanceColor(i)}" role="progressbar" 
+                            style="width: ${getRandomAttendance(i)}%;" 
+                            aria-valuenow="${getRandomAttendance(i)}" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <small class="text-muted">${getRandomAttendance(i)}%</small>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-sm btn-outline-primary me-1" title="View Profile">
+                        <i class="fas fa-user"></i>
+                    </button>
+                    <button type="button" class="btn btn-sm btn-outline-info me-1" title="View Attendance">
+                        <i class="fas fa-clipboard-check"></i>
+                    </button>
+                </td>
+            `;
+            
+            studentListBody.appendChild(row);
+        }
+    }
+
+    // Helper function to get a random attendance percentage
+    function getRandomAttendance(seed) {
+        // Use seed to make the random values consistent
+        const min = 80;
+        const max = 99;
+        return Math.floor(((seed * 7) % (max - min + 1)) + min);
+    }
+
+    // Helper function to get attendance color based on percentage
+    function getRandomAttendanceColor(seed) {
+        const attendance = getRandomAttendance(seed);
+        if (attendance >= 95) return 'success';
+        if (attendance >= 85) return 'info';
+        if (attendance >= 75) return 'warning';
+        return 'danger';
+    }
+</script>
+
+<!-- Additional CSS for Classes Page -->
+<style>
+    .border-left-primary {
+        border-left: 0.25rem solid #4e73df !important;
+    }
+    .border-left-success {
+        border-left: 0.25rem solid #1cc88a !important;
+    }
+    .border-left-info {
+        border-left: 0.25rem solid #36b9cc !important;
+    }
+    .text-gray-300 {
+        color: #dddfeb !important;
+    }
+    .text-gray-800 {
+        color: #5a5c69 !important;
+    }
+</style>

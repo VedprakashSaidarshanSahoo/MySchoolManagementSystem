@@ -1,0 +1,531 @@
+<!-- Teacher Management Page -->
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Teacher Management</h5>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTeacherModal">
+                        <i class="fas fa-plus me-2"></i> Add New Teacher
+                    </button>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-md-4 mb-3">
+                            <label for="filter-teacher-name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="filter-teacher-name" placeholder="Search by name">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="filter-subject" class="form-label">Subject</label>
+                            <select class="form-select" id="filter-subject">
+                                <option value="">All Subjects</option>
+                                <option value="Mathematics">Mathematics</option>
+                                <option value="English">English</option>
+                                <option value="Science">Science</option>
+                                <option value="Physics">Physics</option>
+                                <option value="Chemistry">Chemistry</option>
+                                <option value="Biology">Biology</option>
+                                <option value="History">History</option>
+                                <option value="Geography">Geography</option>
+                                <option value="Computer Science">Computer Science</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3 d-flex align-items-end">
+                            <button type="button" class="btn btn-primary me-2" id="apply-teacher-filter">
+                                <i class="fas fa-search me-2"></i> Search
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary" id="reset-teacher-filter">
+                                <i class="fas fa-undo me-2"></i> Reset
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Subjects</th>
+                                    <th>Assigned Classes</th>
+                                    <th>Contact</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="teacher-table-body">
+                                <tr>
+                                    <td>T001</td>
+                                    <td>John Smith</td>
+                                    <td>Mathematics, Physics</td>
+                                    <td>X-A, X-B, XI-A</td>
+                                    <td>john.smith@example.com</td>
+                                    <td><span class="badge bg-success">Active</span></td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-info me-1" data-bs-toggle="tooltip" title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-warning me-1" data-bs-toggle="tooltip" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="tooltip" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>T002</td>
+                                    <td>Emily Johnson</td>
+                                    <td>English, History</td>
+                                    <td>IX-A, IX-B, X-A</td>
+                                    <td>emily.johnson@example.com</td>
+                                    <td><span class="badge bg-success">Active</span></td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-info me-1" data-bs-toggle="tooltip" title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-warning me-1" data-bs-toggle="tooltip" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="tooltip" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>T003</td>
+                                    <td>Michael Brown</td>
+                                    <td>Science, Chemistry</td>
+                                    <td>XI-A, XI-B</td>
+                                    <td>michael.brown@example.com</td>
+                                    <td><span class="badge bg-success">Active</span></td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-info me-1" data-bs-toggle="tooltip" title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-warning me-1" data-bs-toggle="tooltip" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="tooltip" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-12 col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Subject Distribution</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="subjectDistributionChart" width="400" height="300"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Class Assignment</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="classAssignmentChart" width="400" height="300"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Teacher Modal -->
+<div class="modal fade" id="addTeacherModal" tabindex="-1" aria-labelledby="addTeacherModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addTeacherModalLabel">Add New Teacher</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="add-teacher-form" class="needs-validation" novalidate>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="teacher-name" class="form-label required-field">Full Name</label>
+                            <input type="text" class="form-control" id="teacher-name" required>
+                            <div class="invalid-feedback">Please enter teacher's name</div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="teacher-id" class="form-label required-field">Employee ID</label>
+                            <input type="text" class="form-control" id="teacher-id" required>
+                            <div class="invalid-feedback">Please enter employee ID</div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="teacher-email" class="form-label required-field">Email</label>
+                            <input type="email" class="form-control" id="teacher-email" required>
+                            <div class="invalid-feedback">Please enter a valid email</div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="teacher-phone" class="form-label required-field">Phone</label>
+                            <input type="tel" class="form-control" id="teacher-phone" required>
+                            <div class="invalid-feedback">Please enter phone number</div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="teacher-gender" class="form-label">Gender</label>
+                            <select class="form-select" id="teacher-gender">
+                                <option value="">Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="teacher-dob" class="form-label">Date of Birth</label>
+                            <input type="date" class="form-control" id="teacher-dob">
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="teacher-join-date" class="form-label">Join Date</label>
+                            <input type="date" class="form-control" id="teacher-join-date">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="teacher-status" class="form-label">Status</label>
+                            <select class="form-select" id="teacher-status">
+                                <option value="active" selected>Active</option>
+                                <option value="inactive">Inactive</option>
+                                <option value="on-leave">On Leave</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="teacher-address" class="form-label">Address</label>
+                        <textarea class="form-control" id="teacher-address" rows="2"></textarea>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Subjects</label>
+                        <div class="row" id="subject-checkboxes">
+                            <div class="col-md-4 mb-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="Mathematics" id="subject-math">
+                                    <label class="form-check-label" for="subject-math">Mathematics</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="Physics" id="subject-physics">
+                                    <label class="form-check-label" for="subject-physics">Physics</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="Chemistry" id="subject-chemistry">
+                                    <label class="form-check-label" for="subject-chemistry">Chemistry</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="Biology" id="subject-biology">
+                                    <label class="form-check-label" for="subject-biology">Biology</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="English" id="subject-english">
+                                    <label class="form-check-label" for="subject-english">English</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="History" id="subject-history">
+                                    <label class="form-check-label" for="subject-history">History</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Assign Classes</label>
+                        <div class="row" id="class-checkboxes">
+                            <div class="col-md-4 mb-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="X-A" id="class-x-a">
+                                    <label class="form-check-label" for="class-x-a">X-A</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="X-B" id="class-x-b">
+                                    <label class="form-check-label" for="class-x-b">X-B</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="XI-A" id="class-xi-a">
+                                    <label class="form-check-label" for="class-xi-a">XI-A</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <hr>
+                    
+                    <h6 class="mb-3">Login Credentials</h6>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="teacher-username" class="form-label required-field">Username</label>
+                            <input type="text" class="form-control" id="teacher-username" required>
+                            <div class="invalid-feedback">Please enter a username</div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="teacher-password" class="form-label required-field">Password</label>
+                            <div class="input-group">
+                                <input type="password" class="form-control" id="teacher-password" required>
+                                <button class="btn btn-outline-secondary" type="button" id="toggle-password">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <div class="invalid-feedback">Please enter a password</div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="save-teacher-btn">Save Teacher</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- View Teacher Details Modal -->
+<div class="modal fade" id="viewTeacherModal" tabindex="-1" aria-labelledby="viewTeacherModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="viewTeacherModalLabel">Teacher Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-4">
+                    <div class="col-md-4 text-center mb-3">
+                        <div class="teacher-avatar">
+                            <i class="fas fa-user-circle display-1"></i>
+                        </div>
+                        <h5 id="detail-teacher-name" class="mt-3">John Smith</h5>
+                        <p id="detail-teacher-id" class="text-muted mb-1">T001</p>
+                        <span id="detail-teacher-status" class="badge bg-success">Active</span>
+                    </div>
+                    <div class="col-md-8">
+                        <h6 class="mb-3">Personal Information</h6>
+                        <div class="table-responsive">
+                            <table class="table table-borderless">
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Email:</strong></td>
+                                        <td id="detail-teacher-email">john.smith@example.com</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Phone:</strong></td>
+                                        <td id="detail-teacher-phone">+1-234-567-8901</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Gender:</strong></td>
+                                        <td id="detail-teacher-gender">Male</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Date of Birth:</strong></td>
+                                        <td id="detail-teacher-dob">January 15, 1985</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Join Date:</strong></td>
+                                        <td id="detail-teacher-join-date">August 10, 2020</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Address:</strong></td>
+                                        <td id="detail-teacher-address">123 Main Street, City, State - ZIP</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                <h6 class="mb-0">Subjects</h6>
+                            </div>
+                            <div class="card-body">
+                                <div id="detail-teacher-subjects">
+                                    <span class="badge bg-primary m-1">Mathematics</span>
+                                    <span class="badge bg-primary m-1">Physics</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                <h6 class="mb-0">Assigned Classes</h6>
+                            </div>
+                            <div class="card-body">
+                                <div id="detail-teacher-classes">
+                                    <span class="badge bg-info m-1">X-A</span>
+                                    <span class="badge bg-info m-1">X-B</span>
+                                    <span class="badge bg-info m-1">XI-A</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <h6 class="mb-3">Class Schedule</h6>
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Day</th>
+                                        <th>Time</th>
+                                        <th>Class</th>
+                                        <th>Subject</th>
+                                        <th>Room</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="teacher-schedule-body">
+                                    <tr>
+                                        <td>Monday</td>
+                                        <td>8:30 - 9:20</td>
+                                        <td>X-A</td>
+                                        <td>Mathematics</td>
+                                        <td>101</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Monday</td>
+                                        <td>9:30 - 10:20</td>
+                                        <td>X-B</td>
+                                        <td>Mathematics</td>
+                                        <td>102</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Monday</td>
+                                        <td>11:30 - 12:20</td>
+                                        <td>XI-A</td>
+                                        <td>Physics</td>
+                                        <td>105</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="print-teacher-details-btn">
+                    <i class="fas fa-print me-2"></i> Print Details
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Script for Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Initialize charts when the page is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        // Subject Distribution Chart
+        const subjectDistributionCtx = document.getElementById('subjectDistributionChart').getContext('2d');
+        new Chart(subjectDistributionCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Mathematics', 'Physics', 'Chemistry', 'Biology', 'English', 'History'],
+                datasets: [{
+                    label: 'Teachers per Subject',
+                    data: [2, 1, 1, 0, 1, 1],
+                    backgroundColor: [
+                        'rgba(78, 115, 223, 0.8)',
+                        'rgba(28, 200, 138, 0.8)',
+                        'rgba(54, 185, 204, 0.8)',
+                        'rgba(255, 193, 7, 0.8)',
+                        'rgba(231, 74, 59, 0.8)',
+                        'rgba(133, 135, 150, 0.8)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    },
+                    title: {
+                        display: true,
+                        text: 'Teachers per Subject'
+                    }
+                }
+            }
+        });
+        
+        // Class Assignment Chart
+        const classAssignmentCtx = document.getElementById('classAssignmentChart').getContext('2d');
+        new Chart(classAssignmentCtx, {
+            type: 'bar',
+            data: {
+                labels: ['John Smith', 'Emily Johnson', 'Michael Brown'],
+                datasets: [{
+                    label: 'Assigned Classes',
+                    data: [3, 3, 2],
+                    backgroundColor: 'rgba(78, 115, 223, 0.8)',
+                    borderColor: 'rgba(78, 115, 223, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Number of Classes'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Teachers'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    title: {
+                        display: true,
+                        text: 'Classes per Teacher'
+                    }
+                }
+            }
+        });
+    });
+</script>

@@ -1,0 +1,235 @@
+<!-- Single Admission Page -->
+<div class="container-fluid">
+    <script src="js/utils.js"></script>
+
+    <div class="alert alert-info mb-4">
+        <i class="fas fa-info-circle me-2"></i> Fill in all the required fields marked with <span class="text-danger">*</span> to complete the student admission process.
+    </div>
+
+    <!-- upload photo html -->
+    <input type="file" id="fileInput" accept="image/*" style="display: none;" onchange="displayImage(event)">
+
+    <div 
+        id="imagePreview" 
+        onclick="document.getElementById('fileInput').click()" 
+        style="
+        width: 120px; 
+        height: 140px; 
+        border: 2px dashed #ccc; 
+        display: flex; 
+        align-items: center; 
+        text-align: center;
+        justify-content: flex-end; 
+        cursor: pointer; 
+        background-color: #f8f8f8;
+        font-size: 14px;
+        color: gray;
+        overflow: hidden;
+        margin-left: auto;"> <!-- This aligns the div to the right -->
+        Click to select an image
+    </div>
+
+
+
+    </div>
+
+    <form id="admission-form" class="needs-validation" novalidate>
+        <!-- Personal Information Section -->
+        <div class="admission-section">
+            <h4><i class="fas fa-user me-2"></i>Personal Information</h4>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="firstName" class="form-label required-field">First Name</label>
+                    <input type="text" class="form-control" id="firstName" name="firstName" required>
+                    <div class="invalid-feedback">Please enter first name</div>
+                </div>
+                <div class="col-md-4">
+                    <label for="middleName" class="form-label">Middle Name</label>
+                    <input type="text" class="form-control" id="middleName" name="middleName">
+                </div>
+                <div class="col-md-4">
+                    <label for="lastName" class="form-label required-field">Last Name</label>
+                    <input type="text" class="form-control" id="lastName" name="lastName" required>
+                    <div class="invalid-feedback">Please enter last name</div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="dateOfBirth" class="form-label required-field">Date of Birth</label>
+                    <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth" required>
+                    <div class="invalid-feedback">Please select date of birth</div>
+                </div>
+                <div class="col-md-4">
+                    <label for="gender" class="form-label required-field">Gender</label>
+                    <select class="form-select" id="gender" name="gender" required>
+                        <option value="">Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <div class="invalid-feedback">Please select gender</div>
+                </div>
+                <div class="col-md-4">
+                    <label for="bloodGroup" class="form-label">Blood Group</label>
+                    <select class="form-select" id="bloodGroup" name="bloodGroup">
+                        <option value="">Select Blood Group</option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Academic Information Section -->
+        <div class="admission-section">
+            <h4><i class="fas fa-school me-2"></i>Academic Information</h4>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="admissionClass" class="form-label required-field">Admission Class</label>
+                    <select class="form-select" id="admissionClass" name="admissionClass" required>
+                        <option value="">Select Class</option>
+                        <option value="I">Class I</option>
+                        <option value="II">Class II</option>
+                        <option value="III">Class III</option>
+                        <option value="IV">Class IV</option>
+                        <option value="V">Class V</option>
+                        <option value="VI">Class VI</option>
+                        <option value="VII">Class VII</option>
+                        <option value="VIII">Class VIII</option>
+                        <option value="IX">Class IX</option>
+                        <option value="X">Class X</option>
+                        <option value="XI">Class XI</option>
+                        <option value="XII">Class XII</option>
+                    </select>
+                    <div class="invalid-feedback">Please select admission class</div>
+                </div>
+                <div class="col-md-4">
+                    <label for="section" class="form-label required-field">Section</label>
+                    <select class="form-select" id="section" name="section" required>
+                        <option value="">Select Section</option>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
+                    </select>
+                    <div class="invalid-feedback">Please select section</div>
+                </div>
+                <div class="col-md-4">
+                    <label for="rollNo" class="form-label required-field">Roll No</label>
+                    <input type="number" class="form-control" id="rollNo" name="rollNo" required>
+                    <div class="invalid-feedback">Please enter roll number</div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="previousSchool" class="form-label">Previous School (if any)</label>
+                    <input type="text" class="form-control" id="previousSchool" name="previousSchool">
+                </div>
+                <div class="col-md-6">
+                    <label for="previousClass" class="form-label">Previous Class</label>
+                    <input type="text" class="form-control" id="previousClass" name="previousClass">
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Information Section -->
+        <div class="admission-section">
+            <h4><i class="fas fa-address-book me-2"></i>Contact Information</h4>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="address" class="form-label required-field">Address</label>
+                    <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
+                    <div class="invalid-feedback">Please enter address</div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="city" class="form-label required-field">City</label>
+                        <input type="text" class="form-control" id="city" name="city" required>
+                        <div class="invalid-feedback">Please enter city</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="pinCode" class="form-label required-field">PIN Code</label>
+                        <input type="text" class="form-control" id="pinCode" name="pinCode" required>
+                        <div class="invalid-feedback">Please enter PIN code</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="mobileNumber" class="form-label required-field">Mobile Number</label>
+                    <input type="tel" class="form-control" id="mobileNumber" name="mobileNumber" required pattern="\d+" title="Please enter a valid mobile number">
+                    <div class="invalid-feedback">Please enter a valid mobile number</div>
+                </div>
+            </div>
+            
+                <div class="col-md-6">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" class="form-control" id="email" name="email">
+                    <div class="invalid-feedback">Please enter a valid email address</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Parent/Guardian Information Section -->
+        <div class="admission-section">
+            <h4><i class="fas fa-users me-2"></i>Parent/Guardian Information</h4>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="fatherName" class="form-label required-field">Father's Name</label>
+                    <input type="text" class="form-control" id="fatherName" name="fatherName" required>
+                    <div class="invalid-feedback">Please enter father's name</div>
+                </div>
+                <div class="col-md-6">
+                    <label for="fatherOccupation" class="form-label">Father's Occupation</label>
+                    <input type="text" class="form-control" id="fatherOccupation" name="fatherOccupation">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="motherName" class="form-label required-field">Mother's Name</label>
+                    <input type="text" class="form-control" id="motherName" name="motherName" required>
+                    <div class="invalid-feedback">Please enter mother's name</div>
+                </div>
+                <div class="col-md-6">
+                    <label for="motherOccupation" class="form-label">Mother's Occupation</label>
+                    <input type="text" class="form-control" id="motherOccupation" name="motherOccupation">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="guardianName" class="form-label">Guardian's Name (if not parent)</label>
+                    <input type="text" class="form-control" id="guardianName" name="guardianName">
+                </div>
+                <div class="col-md-6">
+                    <label for="guardianRelation" class="form-label">Relation with Guardian</label>
+                    <input type="text" class="form-control" id="guardianRelation" name="guardianRelation">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="parentMobile" class="form-label required-field">Parent/Guardian Mobile</label>
+                    <input type="tel" class="form-control" id="parentMobile" name="parentMobile" required>
+                    <div class="invalid-feedback">Please enter parent/guardian mobile number</div>
+                </div>
+                <div class="col-md-6">
+                    <label for="parentEmail" class="form-label">Parent/Guardian Email</label>
+                    <input type="email" class="form-control" id="parentEmail" name="parentEmail">
+                </div>
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-4">
+            <button type="reset" class="btn btn-secondary me-md-2">Reset Form</button>
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save me-1"></i> Save Student
+            </button>
+        </div>
+    </form>
+</div>

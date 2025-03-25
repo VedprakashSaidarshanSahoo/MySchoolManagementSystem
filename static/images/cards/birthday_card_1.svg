@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400" viewBox="0 0 800 400">
+  <!-- Background -->
+  <rect width="800" height="400" rx="20" ry="20" fill="#ffeaa7" />
+  
+  <!-- Decorative elements -->
+  <circle cx="100" cy="100" r="50" fill="#fdcb6e" opacity="0.6" />
+  <circle cx="700" cy="300" r="60" fill="#fdcb6e" opacity="0.6" />
+  
+  <!-- Top banner -->
+  <rect x="40" y="40" width="720" height="80" rx="10" ry="10" fill="#e17055" />
+  
+  <!-- Happy Birthday Text -->
+  <text x="400" y="95" font-family="Arial" font-size="40" font-weight="bold" text-anchor="middle" fill="white">Happy Birthday!</text>
+  
+  <!-- Place for custom student name -->
+  <text id="student-name" x="400" y="180" font-family="Arial" font-size="32" font-weight="bold" text-anchor="middle" fill="#2d3436">Student Name</text>
+  
+  <!-- Class information -->
+  <text id="student-class" x="400" y="220" font-family="Arial" font-size="24" text-anchor="middle" fill="#2d3436">Class: X-A</text>
+  
+  <!-- Wishes message -->
+  <text x="400" y="280" font-family="Arial" font-size="18" text-anchor="middle" fill="#2d3436">Wishing you a day filled with happiness and a year filled with joy!</text>
+  
+  <!-- From -->
+  <text x="400" y="340" font-family="Arial" font-size="20" font-style="italic" text-anchor="middle" fill="#2d3436">From all of us at School Name</text>
+  
+  <!-- Cake and Balloon Graphics -->
+  <path d="M100 280 L100 350 L140 350 L140 280 Z" fill="#e84393" />
+  <rect x="90" y="270" width="60" height="10" rx="5" ry="5" fill="#fd79a8" />
+  <rect x="80" y="260" width="80" height="10" rx="5" ry="5" fill="#e84393" />
+  <circle cx="120" cy="250" r="10" fill="#fdcb6e" />
+  
+  <!-- Balloons -->
+  <circle cx="700" cy="200" r="30" fill="#74b9ff" />
+  <circle cx="660" cy="180" r="25" fill="#ff7675" />
+  <circle cx="730" cy="170" r="20" fill="#55efc4" />
+  <path d="M700 200 L680 280" stroke="#7f8c8d" stroke-width="2" fill="none" />
+  <path d="M660 180 L680 280" stroke="#7f8c8d" stroke-width="2" fill="none" />
+  <path d="M730 170 L680 280" stroke="#7f8c8d" stroke-width="2" fill="none" />
+</svg>

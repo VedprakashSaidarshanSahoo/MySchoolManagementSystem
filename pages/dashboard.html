@@ -1,0 +1,163 @@
+<!-- Dashboard Page -->
+<div class="container-fluid">
+    <!-- Stats Cards Row -->
+    <div class="row mb-4">
+        <div class="col-md-3 mb-3">
+            <div class="card stats-card bg-primary text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-title text-white-50">TOTAL STUDENTS</h6>
+                            <h2 class="stats-number" id="total-students">0</h2>
+                            <p class="mb-0">Active Students</p>
+                        </div>
+                        <div class="stats-icon">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card stats-card bg-success text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-title text-white-50">TEACHERS</h6>
+                            <h2 class="stats-number" id="total-teachers">0</h2>
+                            <p class="mb-0">Faculty Members</p>
+                        </div>
+                        <div class="stats-icon">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card stats-card bg-warning text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-title text-white-50">CLASSES</h6>
+                            <h2 class="stats-number" id="total-classes">0</h2>
+                            <p class="mb-0">Active Classes</p>
+                        </div>
+                        <div class="stats-icon">
+                            <i class="fas fa-school"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card stats-card bg-danger text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-title text-white-50">PENDING ADMISSIONS</h6>
+                            <h2 class="stats-number" id="pending-admissions">0</h2>
+                            <p class="mb-0">Awaiting Review</p>
+                        </div>
+                        <div class="stats-icon">
+                            <i class="fas fa-clipboard-check"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Row -->
+    <div class="row mb-4">
+        <div class="col-md-6 mb-3">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Student Distribution by Class</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="class-distribution-chart" height="250"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Gender Distribution</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="gender-distribution-chart" height="250"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Activities & Upcoming Birthdays -->
+    <div class="row">
+        <div class="col-md-8 mb-3">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Recent Activities</h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="list-group list-group-flush" id="recent-activities">
+                        <div class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">New Student Admitted</h6>
+                                <small>Just now</small>
+                            </div>
+                            <p class="mb-1">John Doe was admitted to class X-A</p>
+                        </div>
+                        <div class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">Fee Payment</h6>
+                                <small>3 hrs ago</small>
+                            </div>
+                            <p class="mb-1">Jane Smith (IX-B) paid term fees</p>
+                        </div>
+                        <div class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">Leave Application</h6>
+                                <small>Yesterday</small>
+                            </div>
+                            <p class="mb-1">Mr. Robert (Math Teacher) applied for leave</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Upcoming Birthdays</h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="list-group list-group-flush" id="upcoming-birthdays">
+                        <!-- Birthdays will be loaded here -->
+                        <div class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">Sarah Williams</h6>
+                                <small class="text-primary"><i class="fas fa-birthday-cake me-1"></i>Today</small>
+                            </div>
+                            <p class="mb-1">Class X-A <button class="btn btn-sm btn-outline-primary float-end">Send Card</button></p>
+                        </div>
+                        <div class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">Michael Johnson</h6>
+                                <small class="text-muted"><i class="fas fa-birthday-cake me-1"></i>Tomorrow</small>
+                            </div>
+                            <p class="mb-1">Class VIII-B <button class="btn btn-sm btn-outline-primary float-end">Send Card</button></p>
+                        </div>
+                        <div class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">Emily Brown</h6>
+                                <small class="text-muted"><i class="fas fa-birthday-cake me-1"></i>In 2 days</small>
+                            </div>
+                            <p class="mb-1">Class IX-C <button class="btn btn-sm btn-outline-primary float-end">Send Card</button></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

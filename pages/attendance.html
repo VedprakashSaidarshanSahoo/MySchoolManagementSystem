@@ -1,0 +1,576 @@
+<!-- Attendance Management Page -->
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Attendance Overview</h5>
+                    <div>
+                        <button type="button" class="btn btn-outline-primary me-2" id="export-attendance-btn">
+                            <i class="fas fa-file-export me-1"></i> Export
+                        </button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#recordAttendanceModal">
+                            <i class="fas fa-plus me-2"></i> Record Attendance
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-md-3 mb-3">
+                            <label for="filter-class" class="form-label">Class</label>
+                            <select class="form-select" id="filter-class">
+                                <option value="">All Classes</option>
+                                <option value="X-A">X-A</option>
+                                <option value="X-B">X-B</option>
+                                <option value="XI-A">XI-A</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="filter-date-from" class="form-label">Date From</label>
+                            <input type="date" class="form-control" id="filter-date-from">
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="filter-date-to" class="form-label">Date To</label>
+                            <input type="date" class="form-control" id="filter-date-to">
+                        </div>
+                        <div class="col-md-3 mb-3 d-flex align-items-end">
+                            <button type="button" class="btn btn-primary me-2" id="apply-filter-btn">
+                                <i class="fas fa-search me-2"></i> Apply
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary" id="reset-filter-btn">
+                                <i class="fas fa-undo me-2"></i> Reset
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="attendance-summary mb-4">
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <div class="card border-left-primary shadow h-100">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                    Total Classes
+                                                </div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="total-classes">3</div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <i class="fas fa-chalkboard fa-2x text-gray-300"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="card border-left-success shadow h-100">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                    Today's Attendance
+                                                </div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="today-attendance">0/84</div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <i class="fas fa-clipboard-check fa-2x text-gray-300"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="card border-left-info shadow h-100">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                                    Overall Attendance Rate
+                                                </div>
+                                                <div class="row no-gutters align-items-center">
+                                                    <div class="col-auto">
+                                                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" id="overall-rate">90%</div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="progress progress-sm mr-2">
+                                                            <div class="progress-bar bg-info" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <i class="fas fa-percentage fa-2x text-gray-300"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Class</th>
+                                    <th>Subject</th>
+                                    <th>Teacher</th>
+                                    <th>Present</th>
+                                    <th>Absent</th>
+                                    <th>Percentage</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="attendance-table-body">
+                                <tr>
+                                    <td>Mar 23, 2025</td>
+                                    <td>X-A</td>
+                                    <td>Mathematics</td>
+                                    <td>John Smith</td>
+                                    <td>28</td>
+                                    <td>2</td>
+                                    <td>
+                                        <div class="progress" style="height: 6px;">
+                                            <div class="progress-bar bg-success" role="progressbar" style="width: 93%;" aria-valuenow="93" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                        <small class="text-muted">93%</small>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-outline-primary me-1" data-bs-toggle="tooltip" title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-outline-warning me-1" data-bs-toggle="tooltip" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="tooltip" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Mar 22, 2025</td>
+                                    <td>X-B</td>
+                                    <td>Mathematics</td>
+                                    <td>John Smith</td>
+                                    <td>26</td>
+                                    <td>3</td>
+                                    <td>
+                                        <div class="progress" style="height: 6px;">
+                                            <div class="progress-bar bg-success" role="progressbar" style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                        <small class="text-muted">90%</small>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-outline-primary me-1" data-bs-toggle="tooltip" title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-outline-warning me-1" data-bs-toggle="tooltip" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="tooltip" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Mar 22, 2025</td>
+                                    <td>XI-A</td>
+                                    <td>Physics</td>
+                                    <td>John Smith</td>
+                                    <td>22</td>
+                                    <td>3</td>
+                                    <td>
+                                        <div class="progress" style="height: 6px;">
+                                            <div class="progress-bar bg-success" role="progressbar" style="width: 88%;" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                        <small class="text-muted">88%</small>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-outline-primary me-1" data-bs-toggle="tooltip" title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-outline-warning me-1" data-bs-toggle="tooltip" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="tooltip" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-12 col-lg-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Attendance Trend</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="attendanceTrendChart" width="400" height="250"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Class-wise Attendance</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="classAttendanceChart" width="400" height="250"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Record Attendance Modal -->
+<div class="modal fade" id="recordAttendanceModal" tabindex="-1" aria-labelledby="recordAttendanceModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="recordAttendanceModalLabel">Record Attendance</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="attendance-form">
+                    <div class="row mb-3">
+                        <div class="col-md-4 mb-3">
+                            <label for="attendance-class" class="form-label required-field">Class</label>
+                            <select class="form-select" id="attendance-class" required>
+                                <option value="">Select Class</option>
+                                <option value="X-A">X-A</option>
+                                <option value="X-B">X-B</option>
+                                <option value="XI-A">XI-A</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="attendance-date" class="form-label required-field">Date</label>
+                            <input type="date" class="form-control" id="attendance-date" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="attendance-subject" class="form-label required-field">Subject</label>
+                            <select class="form-select" id="attendance-subject" required>
+                                <option value="">Select Subject</option>
+                                <option value="Mathematics">Mathematics</option>
+                                <option value="Physics">Physics</option>
+                                <option value="Chemistry">Chemistry</option>
+                                <option value="Biology">Biology</option>
+                                <option value="English">English</option>
+                                <option value="History">History</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between mb-3">
+                        <button type="button" class="btn btn-primary" id="load-students-btn">
+                            <i class="fas fa-sync-alt me-2"></i> Load Students
+                        </button>
+                        <div>
+                            <button type="button" class="btn btn-outline-success me-2" id="mark-all-present">
+                                <i class="fas fa-check me-2"></i> Mark All Present
+                            </button>
+                            <button type="button" class="btn btn-outline-danger" id="mark-all-absent">
+                                <i class="fas fa-times me-2"></i> Mark All Absent
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                
+                <!-- Loading State -->
+                <div id="attendance-loading" class="text-center py-5 d-none">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p class="mt-2">Loading student list...</p>
+                </div>
+                
+                <!-- Empty State -->
+                <div id="attendance-empty" class="text-center py-5">
+                    <div class="empty-state-icon mb-3">
+                        <i class="fas fa-clipboard-list"></i>
+                    </div>
+                    <h5>No Students Loaded</h5>
+                    <p class="text-muted">Please select a class and click "Load Students" to take attendance.</p>
+                </div>
+                
+                <!-- Attendance Table -->
+                <div id="attendance-table-container" class="d-none">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th style="width: 50px">#</th>
+                                    <th>Student Name</th>
+                                    <th>Roll No</th>
+                                    <th style="width: 150px">Status</th>
+                                    <th style="width: 200px">Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody id="attendance-table-body">
+                                <!-- Student rows will be added dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between align-items-center mt-4">
+                        <div>
+                            <span class="badge bg-success me-2">Present: <span id="present-count">0</span></span>
+                            <span class="badge bg-danger me-2">Absent: <span id="absent-count">0</span></span>
+                            <span class="badge bg-info">Total: <span id="total-count">0</span></span>
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-success" id="save-attendance-btn">
+                                <i class="fas fa-save me-2"></i> Save Attendance
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- View Attendance Details Modal -->
+<div class="modal fade" id="viewAttendanceModal" tabindex="-1" aria-labelledby="viewAttendanceModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="viewAttendanceModalLabel">Attendance Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <p class="mb-1"><strong>Class:</strong> <span id="detail-class">X-A</span></p>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="mb-1"><strong>Date:</strong> <span id="detail-date">Mar 23, 2025</span></p>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="mb-1"><strong>Subject:</strong> <span id="detail-subject">Mathematics</span></p>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <p class="mb-1"><strong>Teacher:</strong> <span id="detail-teacher">John Smith</span></p>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="mb-1"><strong>Status:</strong> <span id="detail-status">Completed</span></p>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="mb-1"><strong>Attendance Rate:</strong> <span id="detail-rate">93%</span></p>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Student Name</th>
+                                <th>Roll No</th>
+                                <th>Status</th>
+                                <th>Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody id="detail-attendance-table-body">
+                            <!-- Student rows will be added dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="print-attendance-btn">
+                    <i class="fas fa-print me-2"></i> Print
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Attendance Modal -->
+<div class="modal fade" id="editAttendanceModal" tabindex="-1" aria-labelledby="editAttendanceModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editAttendanceModalLabel">Edit Attendance</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="edit-attendance-form">
+                    <input type="hidden" id="edit-attendance-id">
+                    <div class="row mb-3">
+                        <div class="col-md-4 mb-3">
+                            <label for="edit-attendance-class" class="form-label required-field">Class</label>
+                            <input type="text" class="form-control" id="edit-attendance-class" disabled>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="edit-attendance-date" class="form-label required-field">Date</label>
+                            <input type="date" class="form-control" id="edit-attendance-date" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="edit-attendance-subject" class="form-label required-field">Subject</label>
+                            <select class="form-select" id="edit-attendance-subject" required>
+                                <option value="">Select Subject</option>
+                                <option value="Mathematics">Mathematics</option>
+                                <option value="Physics">Physics</option>
+                                <option value="Chemistry">Chemistry</option>
+                                <option value="Biology">Biology</option>
+                                <option value="English">English</option>
+                                <option value="History">History</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+                
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th style="width: 50px">#</th>
+                                <th>Student Name</th>
+                                <th>Roll No</th>
+                                <th style="width: 150px">Status</th>
+                                <th style="width: 200px">Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody id="edit-attendance-table-body">
+                            <!-- Student rows will be added dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="d-flex justify-content-between align-items-center mt-4">
+                    <div>
+                        <span class="badge bg-success me-2">Present: <span id="edit-present-count">0</span></span>
+                        <span class="badge bg-danger me-2">Absent: <span id="edit-absent-count">0</span></span>
+                        <span class="badge bg-info">Total: <span id="edit-total-count">0</span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="update-attendance-btn">
+                    <i class="fas fa-save me-2"></i> Update Attendance
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Script for Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Initialize charts when the page is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        // Attendance Trend Chart
+        const attendanceTrendCtx = document.getElementById('attendanceTrendChart').getContext('2d');
+        new Chart(attendanceTrendCtx, {
+            type: 'line',
+            data: {
+                labels: ['Mar 18', 'Mar 19', 'Mar 20', 'Mar 21', 'Mar 22', 'Mar 23'],
+                datasets: [{
+                    label: 'Attendance Rate (%)',
+                    data: [85, 87, 88, 89, 90, 93],
+                    backgroundColor: 'rgba(78, 115, 223, 0.05)',
+                    borderColor: 'rgba(78, 115, 223, 1)',
+                    borderWidth: 2,
+                    tension: 0.3,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        min: 70,
+                        max: 100,
+                        title: {
+                            display: true,
+                            text: 'Percentage (%)'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Date'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    },
+                    title: {
+                        display: true,
+                        text: 'Weekly Attendance Trend'
+                    }
+                }
+            }
+        });
+        
+        // Class-wise Attendance Chart
+        const classAttendanceCtx = document.getElementById('classAttendanceChart').getContext('2d');
+        new Chart(classAttendanceCtx, {
+            type: 'bar',
+            data: {
+                labels: ['X-A', 'X-B', 'XI-A'],
+                datasets: [{
+                    label: 'Present (%)',
+                    data: [93, 90, 88],
+                    backgroundColor: [
+                        'rgba(28, 200, 138, 0.8)',
+                        'rgba(28, 200, 138, 0.8)',
+                        'rgba(28, 200, 138, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgba(28, 200, 138, 1)',
+                        'rgba(28, 200, 138, 1)',
+                        'rgba(28, 200, 138, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        title: {
+                            display: true,
+                            text: 'Percentage (%)'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Class'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    title: {
+                        display: true,
+                        text: 'Class-wise Attendance Rate'
+                    }
+                }
+            }
+        });
+    });
+</script>

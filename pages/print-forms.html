@@ -1,0 +1,238 @@
+<!-- Print Forms Page -->
+<div class="container-fluid">
+    <div class="alert alert-info mb-4">
+        <i class="fas fa-info-circle me-2"></i> Select students to print forms, ID cards, or certificates in bulk. You can also filter students by class and section.
+    </div>
+
+    <!-- Form Type Selection -->
+    <div class="admission-section">
+        <h4><i class="fas fa-file-alt me-2"></i>Select Form Type</h4>
+        <div class="row mb-3">
+            <div class="col-md-12">
+                <div class="btn-group w-100" role="group" aria-label="Form type selection">
+                    <input type="radio" class="btn-check" name="form-type" id="admission-form" value="admission" checked>
+                    <label class="btn btn-outline-primary" for="admission-form">
+                        <i class="fas fa-file-alt me-1"></i> Admission Form
+                    </label>
+                    
+                    <input type="radio" class="btn-check" name="form-type" id="id-card" value="id-card">
+                    <label class="btn btn-outline-primary" for="id-card">
+                        <i class="fas fa-id-card me-1"></i> ID Card
+                    </label>
+                    
+                    <input type="radio" class="btn-check" name="form-type" id="certificate" value="certificate">
+                    <label class="btn btn-outline-primary" for="certificate">
+                        <i class="fas fa-certificate me-1"></i> Certificate
+                    </label>
+                    
+                    <input type="radio" class="btn-check" name="form-type" id="report-card" value="report-card">
+                    <label class="btn btn-outline-primary" for="report-card">
+                        <i class="fas fa-file-invoice me-1"></i> Report Card
+                    </label>
+                    
+                    <input type="radio" class="btn-check" name="form-type" id="birthday-card" value="birthday-card">
+                    <label class="btn btn-outline-primary" for="birthday-card">
+                        <i class="fas fa-birthday-cake me-1"></i> Birthday Card
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filter Section -->
+    <div class="admission-section">
+        <h4><i class="fas fa-filter me-2"></i>Filter Students</h4>
+        <div class="row g-3">
+            <div class="col-md-3">
+                <label for="filter-class" class="form-label">Class</label>
+                <select class="form-select" id="filter-class">
+                    <option value="">All Classes</option>
+                    <option value="I">Class I</option>
+                    <option value="II">Class II</option>
+                    <option value="III">Class III</option>
+                    <option value="IV">Class IV</option>
+                    <option value="V">Class V</option>
+                    <option value="VI">Class VI</option>
+                    <option value="VII">Class VII</option>
+                    <option value="VIII">Class VIII</option>
+                    <option value="IX">Class IX</option>
+                    <option value="X">Class X</option>
+                    <option value="XI">Class XI</option>
+                    <option value="XII">Class XII</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="filter-section" class="form-label">Section</label>
+                <select class="form-select" id="filter-section">
+                    <option value="">All Sections</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label for="search-student" class="form-label">Search Student</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="search-student" placeholder="Search by name or roll number...">
+                    <button class="btn btn-primary" type="button" id="search-btn">
+                        <i class="fas fa-search"></i> Search
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Student Selection Section -->
+    <div class="admission-section">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h4><i class="fas fa-users me-2"></i>Select Students</h4>
+            <div>
+                <button class="btn btn-outline-primary btn-sm me-2" id="select-all-btn">
+                    <i class="fas fa-check-square me-1"></i> Select All
+                </button>
+                <button class="btn btn-outline-secondary btn-sm" id="clear-selection-btn">
+                    <i class="fas fa-square me-1"></i> Clear Selection
+                </button>
+            </div>
+        </div>
+        
+        <div class="table-container">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col" style="width: 50px;">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="select-all-checkbox">
+                                </div>
+                            </th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Class</th>
+                            <th scope="col">Roll No</th>
+                            <th scope="col">Preview</th>
+                        </tr>
+                    </thead>
+                    <tbody id="students-table-body">
+                        <!-- Students will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Empty state message -->
+            <div id="empty-state" class="text-center py-5 d-none">
+                <i class="fas fa-user-graduate fa-4x text-muted mb-3"></i>
+                <h5>No Students Found</h5>
+                <p class="text-muted">Try adjusting your filter criteria</p>
+                <button class="btn btn-outline-primary" id="reset-filters-btn">
+                    <i class="fas fa-redo me-1"></i> Reset Filters
+                </button>
+            </div>
+            
+            <!-- Loading state -->
+            <div id="loading-state" class="text-center py-5 d-none">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <p class="mt-2">Loading students...</p>
+            </div>
+        </div>
+        
+        <div class="d-flex justify-content-between align-items-center mt-3">
+            <div>
+                <span class="badge bg-primary rounded-pill" id="selected-count">0 students selected</span>
+            </div>
+            <div>
+                <button class="btn btn-primary" id="print-selected-btn" disabled>
+                    <i class="fas fa-print me-1"></i> Print Selected
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Preview Modal -->
+<div class="modal fade" id="previewModal" tabindex="-1" aria-labelledby="previewModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="previewModalLabel">Form Preview</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="preview-content">
+                <!-- Preview content will be loaded here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="print-single-btn">
+                    <i class="fas fa-print me-1"></i> Print
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Birthday Card Template Selection Modal -->
+<div class="modal fade" id="birthdayCardModal" tabindex="-1" aria-labelledby="birthdayCardModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="birthdayCardModalLabel">Select Birthday Card Template</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">Template 1</h5>
+                                <div class="text-center">
+                                    <img src="static/images/cards/birthday_card_1.svg" alt="Birthday Card Template 1" class="img-fluid birthday-card-preview mb-3">
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="birthday-template" id="template-1" value="template-1" checked>
+                                    <label class="form-check-label" for="template-1">
+                                        Colorful Birthday Card
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">Template 2</h5>
+                                <div class="text-center">
+                                    <img src="static/images/cards/birthday_card_2.svg" alt="Birthday Card Template 2" class="img-fluid birthday-card-preview mb-3">
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="birthday-template" id="template-2" value="template-2">
+                                    <label class="form-check-label" for="template-2">
+                                        Elegant Birthday Card
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group mt-3">
+                    <label for="birthday-message" class="form-label">Custom Message (Optional)</label>
+                    <textarea class="form-control" id="birthday-message" rows="3" placeholder="Add a custom birthday wish..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="confirm-birthday-card">
+                    <i class="fas fa-check me-1"></i> Confirm
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Print Preview Container (Hidden) -->
+<div id="print-container" class="d-none">
+    <div id="print-content" class="print-section">
+        <!-- Print content will be generated here -->
+    </div>
+</div>

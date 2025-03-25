@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <!-- School Badge Background -->
+  <circle cx="100" cy="100" r="90" fill="#3498db" />
+  <circle cx="100" cy="100" r="80" fill="#2980b9" />
+  
+  <!-- Graduation Cap -->
+  <path d="M100 40 L40 70 L100 100 L160 70 Z" fill="#ecf0f1" />
+  <path d="M160 70 L160 90 L100 120 L40 90 L40 70" stroke="#ecf0f1" stroke-width="4" fill="none" />
+  <rect x="97" y="100" width="6" height="30" fill="#ecf0f1" />
+  <path d="M85 130 L115 130 L115 140 L85 140 Z" fill="#ecf0f1" />
+  
+  <!-- Name Banner -->
+  <path d="M40 150 L160 150 L160 160 C160 165 155 170 150 170 L50 170 C45 170 40 165 40 160 Z" fill="#ecf0f1" />
+  
+  <!-- School Name -->
+  <text x="100" y="163" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="#2980b9">School Name</text>
+  
+  <!-- Motto -->
+  <text x="100" y="185" font-family="Arial" font-size="10" font-style="italic" text-anchor="middle" fill="#ecf0f1">Knowledge is Power</text>
+</svg>

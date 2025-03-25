@@ -1,0 +1,526 @@
+<!-- Settings Page -->
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">School Settings</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="nav nav-tabs" id="settings-tab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="school-tab" data-bs-toggle="tab" data-bs-target="#school-settings" 
+                                type="button" role="tab" aria-controls="school-settings" aria-selected="true">
+                                School Information
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="users-tab" data-bs-toggle="tab" data-bs-target="#user-settings" 
+                                type="button" role="tab" aria-controls="user-settings" aria-selected="false">
+                                User Management
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="academic-tab" data-bs-toggle="tab" data-bs-target="#academic-settings" 
+                                type="button" role="tab" aria-controls="academic-settings" aria-selected="false">
+                                Academic Settings
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="notifications-tab" data-bs-toggle="tab" data-bs-target="#notification-settings" 
+                                type="button" role="tab" aria-controls="notification-settings" aria-selected="false">
+                                Notification Settings
+                            </button>
+                        </li>
+                    </ul>
+                    <div class="tab-content pt-4" id="settings-tab-content">
+                        <!-- School Information Settings -->
+                        <div class="tab-pane fade show active" id="school-settings" role="tabpanel" aria-labelledby="school-tab">
+                            <form id="school-info-form">
+                                <div class="row mb-3">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="school-name" class="form-label">School Name</label>
+                                        <input type="text" class="form-control" id="school-name" value="Global Academy">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="school-code" class="form-label">School Code</label>
+                                        <input type="text" class="form-control" id="school-code" value="GA-12345">
+                                    </div>
+                                </div>
+                                
+                                <div class="row mb-3">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="school-address" class="form-label">Address</label>
+                                        <textarea class="form-control" id="school-address" rows="3">123 Education Lane, Academic City, AC 54321</textarea>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="school-contact" class="form-label">Contact Information</label>
+                                        <input type="tel" class="form-control mb-2" id="school-phone" placeholder="Phone" value="+1 (555) 123-4567">
+                                        <input type="email" class="form-control" id="school-email" placeholder="Email" value="info@globalacademy.edu">
+                                    </div>
+                                </div>
+                                
+                                <div class="row mb-3">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="school-principal" class="form-label">Principal's Name</label>
+                                        <input type="text" class="form-control" id="school-principal" value="Dr. Jane Smith">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="school-established" class="form-label">Established Year</label>
+                                        <input type="number" class="form-control" id="school-established" value="1995">
+                                    </div>
+                                </div>
+                                
+                                <div class="row mb-3">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">School Logo</label>
+                                        <div class="d-flex align-items-center">
+                                            <img src="/static/images/logos/school_logo.svg" alt="School Logo" height="80" class="me-3">
+                                            <button type="button" class="btn btn-outline-primary">
+                                                <i class="fas fa-upload me-2"></i> Upload New Logo
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="school-website" class="form-label">Website</label>
+                                        <input type="url" class="form-control" id="school-website" value="https://www.globalacademy.edu">
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-12 text-end">
+                                        <button type="button" class="btn btn-primary" id="save-school-info-btn">
+                                            <i class="fas fa-save me-2"></i> Save Changes
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <!-- User Management Settings -->
+                        <div class="tab-pane fade" id="user-settings" role="tabpanel" aria-labelledby="users-tab">
+                            <div class="row mb-4">
+                                <div class="col-12 d-flex justify-content-end">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
+                                        <i class="fas fa-user-plus me-2"></i> Add New User
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="table-responsive">
+                                <table class="table table-hover" id="users-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Username</th>
+                                            <th>Name</th>
+                                            <th>Role</th>
+                                            <th>Email</th>
+                                            <th>Last Login</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="users-table-body">
+                                        <!-- User rows will be added dynamically -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <!-- Academic Settings -->
+                        <div class="tab-pane fade" id="academic-settings" role="tabpanel" aria-labelledby="academic-tab">
+                            <form id="academic-settings-form">
+                                <div class="row mb-4">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="current-session" class="form-label">Current Academic Session</label>
+                                        <input type="text" class="form-control" id="current-session" value="2024-2025">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="session-start-date" class="form-label">Session Start Date</label>
+                                        <input type="date" class="form-control" id="session-start-date" value="2024-04-01">
+                                    </div>
+                                </div>
+                                
+                                <div class="row mb-4">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="working-days" class="form-label">Working Days per Week</label>
+                                        <select class="form-select" id="working-days">
+                                            <option value="5">5 Days (Monday - Friday)</option>
+                                            <option value="6" selected>6 Days (Monday - Saturday)</option>
+                                            <option value="7">7 Days (Monday - Sunday)</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="class-duration" class="form-label">Default Class Duration (minutes)</label>
+                                        <input type="number" class="form-control" id="class-duration" value="45">
+                                    </div>
+                                </div>
+                                
+                                <h6 class="mb-3">Attendance Settings</h6>
+                                <div class="row mb-4">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="attendance-method" class="form-label">Attendance Recording Method</label>
+                                        <select class="form-select" id="attendance-method">
+                                            <option value="subject" selected>Subject-wise</option>
+                                            <option value="daily">Daily (Once per day)</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="min-attendance" class="form-label">Minimum Required Attendance (%)</label>
+                                        <input type="number" class="form-control" id="min-attendance" value="75">
+                                    </div>
+                                </div>
+                                
+                                <h6 class="mb-3">Grade Scale Settings</h6>
+                                <div class="table-responsive mb-4">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Grade</th>
+                                                <th>Min. Marks (%)</th>
+                                                <th>Max. Marks (%)</th>
+                                                <th>Description</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="grade-table-body">
+                                            <tr>
+                                                <td><input type="text" class="form-control form-control-sm" value="A+"></td>
+                                                <td><input type="number" class="form-control form-control-sm" value="90"></td>
+                                                <td><input type="number" class="form-control form-control-sm" value="100"></td>
+                                                <td><input type="text" class="form-control form-control-sm" value="Outstanding"></td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="text" class="form-control form-control-sm" value="A"></td>
+                                                <td><input type="number" class="form-control form-control-sm" value="80"></td>
+                                                <td><input type="number" class="form-control form-control-sm" value="89"></td>
+                                                <td><input type="text" class="form-control form-control-sm" value="Excellent"></td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="text" class="form-control form-control-sm" value="B"></td>
+                                                <td><input type="number" class="form-control form-control-sm" value="70"></td>
+                                                <td><input type="number" class="form-control form-control-sm" value="79"></td>
+                                                <td><input type="text" class="form-control form-control-sm" value="Very Good"></td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="text" class="form-control form-control-sm" value="C"></td>
+                                                <td><input type="number" class="form-control form-control-sm" value="60"></td>
+                                                <td><input type="number" class="form-control form-control-sm" value="69"></td>
+                                                <td><input type="text" class="form-control form-control-sm" value="Good"></td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="text" class="form-control form-control-sm" value="D"></td>
+                                                <td><input type="number" class="form-control form-control-sm" value="50"></td>
+                                                <td><input type="number" class="form-control form-control-sm" value="59"></td>
+                                                <td><input type="text" class="form-control form-control-sm" value="Satisfactory"></td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="text" class="form-control form-control-sm" value="F"></td>
+                                                <td><input type="number" class="form-control form-control-sm" value="0"></td>
+                                                <td><input type="number" class="form-control form-control-sm" value="49"></td>
+                                                <td><input type="text" class="form-control form-control-sm" value="Fail"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-12 text-end">
+                                        <button type="button" class="btn btn-primary" id="save-academic-settings-btn">
+                                            <i class="fas fa-save me-2"></i> Save Changes
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <!-- Notification Settings -->
+                        <div class="tab-pane fade" id="notification-settings" role="tabpanel" aria-labelledby="notifications-tab">
+                            <form id="notification-settings-form">
+                                <h6 class="mb-3">Email Notifications</h6>
+                                <div class="row mb-4">
+                                    <div class="col-md-6 mb-3">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="attendance-email" checked>
+                                            <label class="form-check-label" for="attendance-email">
+                                                Send attendance notifications to parents
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="exam-email" checked>
+                                            <label class="form-check-label" for="exam-email">
+                                                Send exam schedule and result notifications
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <div class="col-md-6 mb-3">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="fee-email" checked>
+                                            <label class="form-check-label" for="fee-email">
+                                                Send fee payment reminders
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="event-email" checked>
+                                            <label class="form-check-label" for="event-email">
+                                                Send event notifications
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <h6 class="mb-3">SMS Notifications</h6>
+                                <div class="row mb-4">
+                                    <div class="col-md-6 mb-3">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="attendance-sms" checked>
+                                            <label class="form-check-label" for="attendance-sms">
+                                                Send attendance notifications via SMS
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="fee-sms" checked>
+                                            <label class="form-check-label" for="fee-sms">
+                                                Send fee payment reminders via SMS
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <div class="col-md-6 mb-3">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="emergency-sms" checked>
+                                            <label class="form-check-label" for="emergency-sms">
+                                                Send emergency notifications via SMS
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="sms-template" class="form-label">SMS Template</label>
+                                        <textarea class="form-control" id="sms-template" rows="3">Dear Parent, your ward {STUDENT_NAME} was {STATUS} today. For details, please log in to the school portal. Regards, {SCHOOL_NAME}</textarea>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-12 text-end">
+                                        <button type="button" class="btn btn-primary" id="save-notification-settings-btn">
+                                            <i class="fas fa-save me-2"></i> Save Changes
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add User Modal -->
+<div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addUserModalLabel">Add New User</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="add-user-form">
+                    <div class="mb-3">
+                        <label for="user-name" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="user-name" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="user-email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="user-email" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="user-username" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="user-username" name="username" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="user-password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="user-password" name="password" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="user-role" class="form-label">Role</label>
+                        <select class="form-select" id="user-role" name="role" required>
+                            <option value="">Select Role</option>
+                            <option value="admin">Administrator</option>
+                            <option value="teacher">Teacher</option>
+                        </select>
+                    </div>
+                    <div class="mb-3" id="teacher-info-fields" style="display: none;">
+                        <div class="mb-3">
+                            <label for="teacher-subjects" class="form-label">Subjects</label>
+                            <select class="form-select" id="teacher-subjects" name="subjects" multiple>
+                                <option value="Mathematics">Mathematics</option>
+                                <option value="Physics">Physics</option>
+                                <option value="Chemistry">Chemistry</option>
+                                <option value="Biology">Biology</option>
+                                <option value="English">English</option>
+                                <option value="History">History</option>
+                                <option value="Geography">Geography</option>
+                                <option value="Computer Science">Computer Science</option>
+                            </select>
+                            <div class="form-text">Hold Ctrl (or Cmd) to select multiple subjects</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="teacher-classes" class="form-label">Assigned Classes</label>
+                            <select class="form-select" id="teacher-classes" name="classes" multiple>
+                                <option value="IX-A">IX-A</option>
+                                <option value="IX-B">IX-B</option>
+                                <option value="X-A">X-A</option>
+                                <option value="X-B">X-B</option>
+                                <option value="XI-A">XI-A</option>
+                                <option value="XI-B">XI-B</option>
+                                <option value="XII-A">XII-A</option>
+                                <option value="XII-B">XII-B</option>
+                            </select>
+                            <div class="form-text">Hold Ctrl (or Cmd) to select multiple classes</div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="save-user-btn">Add User</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit User Modal -->
+<div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editUserModalLabel">Edit User</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="edit-user-form">
+                    <input type="hidden" id="edit-user-id">
+                    <div class="mb-3">
+                        <label for="edit-user-name" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="edit-user-name" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit-user-email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="edit-user-email" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit-user-username" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="edit-user-username" name="username" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit-user-password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="edit-user-password" name="password" placeholder="Leave blank to keep current password">
+                        <div class="form-text">Leave blank to keep current password</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit-user-role" class="form-label">Role</label>
+                        <select class="form-select" id="edit-user-role" name="role" required>
+                            <option value="">Select Role</option>
+                            <option value="admin">Administrator</option>
+                            <option value="teacher">Teacher</option>
+                        </select>
+                    </div>
+                    <div class="mb-3" id="edit-teacher-info-fields" style="display: none;">
+                        <div class="mb-3">
+                            <label for="edit-teacher-subjects" class="form-label">Subjects</label>
+                            <select class="form-select" id="edit-teacher-subjects" name="subjects" multiple>
+                                <option value="Mathematics">Mathematics</option>
+                                <option value="Physics">Physics</option>
+                                <option value="Chemistry">Chemistry</option>
+                                <option value="Biology">Biology</option>
+                                <option value="English">English</option>
+                                <option value="History">History</option>
+                                <option value="Geography">Geography</option>
+                                <option value="Computer Science">Computer Science</option>
+                            </select>
+                            <div class="form-text">Hold Ctrl (or Cmd) to select multiple subjects</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit-teacher-classes" class="form-label">Assigned Classes</label>
+                            <select class="form-select" id="edit-teacher-classes" name="classes" multiple>
+                                <option value="IX-A">IX-A</option>
+                                <option value="IX-B">IX-B</option>
+                                <option value="X-A">X-A</option>
+                                <option value="X-B">X-B</option>
+                                <option value="XI-A">XI-A</option>
+                                <option value="XI-B">XI-B</option>
+                                <option value="XII-A">XII-A</option>
+                                <option value="XII-B">XII-B</option>
+                            </select>
+                            <div class="form-text">Hold Ctrl (or Cmd) to select multiple classes</div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="update-user-btn">Update User</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete User Confirmation Modal -->
+<div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteUserModalLabel">Confirm Deletion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete the user <strong id="delete-user-name"></strong>?</p>
+                <p class="text-danger">This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirm-delete-user-btn">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Show/hide teacher fields based on selected role
+    document.addEventListener('DOMContentLoaded', function() {
+        const userRole = document.getElementById('user-role');
+        const teacherFields = document.getElementById('teacher-info-fields');
+        
+        if (userRole && teacherFields) {
+            userRole.addEventListener('change', function() {
+                if (this.value === 'teacher') {
+                    teacherFields.style.display = 'block';
+                } else {
+                    teacherFields.style.display = 'none';
+                }
+            });
+        }
+        
+        const editUserRole = document.getElementById('edit-user-role');
+        const editTeacherFields = document.getElementById('edit-teacher-info-fields');
+        
+        if (editUserRole && editTeacherFields) {
+            editUserRole.addEventListener('change', function() {
+                if (this.value === 'teacher') {
+                    editTeacherFields.style.display = 'block';
+                } else {
+                    editTeacherFields.style.display = 'none';
+                }
+            });
+        }
+    });
+</script>

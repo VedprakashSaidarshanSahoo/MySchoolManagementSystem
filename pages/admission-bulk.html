@@ -1,0 +1,126 @@
+<!-- Bulk Admission Page -->
+<div class="container-fluid">
+    <div class="alert alert-info mb-4">
+        <i class="fas fa-info-circle me-2"></i> Upload an Excel file with student data for bulk admission. You can also download a template to see the required format.
+    </div>
+
+    <div class="admission-section">
+        <h4><i class="fas fa-file-excel me-2"></i>Excel File Upload</h4>
+        
+        <div class="row mb-4">
+            <div class="col-md-8">
+                <div id="drop-zone" class="drop-zone">
+                    <div class="drop-zone-prompt">
+                        <i class="fas fa-cloud-upload-alt fa-3x mb-3"></i>
+                        <p>Drag & Drop your Excel file here or click to browse</p>
+                    </div>
+                    <input type="file" id="file-input" class="d-none" accept=".xlsx, .xls">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header bg-light">
+                        <h5 class="card-title mb-0">Instructions</h5>
+                    </div>
+                    <div class="card-body">
+                        <p>Upload an Excel file with the following columns:</p>
+                        <ul>
+                            <li>First Name</li>
+                            <li>Last Name</li>
+                            <li>Date of Birth</li>
+                            <li>Gender</li>
+                            <li>Class</li>
+                            <li>Section</li>
+                            <li>Roll No</li>
+                            <li>Mobile</li>
+                            <li>Address</li>
+                            <li>Parent Name</li>
+                            <li>Parent Mobile</li>
+                        </ul>
+                        <a href="#" class="btn btn-outline-primary btn-sm" id="download-template">
+                            <i class="fas fa-download me-1"></i> Download Template
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="file-info" class="alert alert-success d-none">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <i class="fas fa-file-excel me-2"></i>
+                    <span id="file-name">filename.xlsx</span>
+                    <span class="badge bg-success ms-2" id="student-count">0 students</span>
+                </div>
+                <button class="btn btn-sm btn-outline-danger" id="remove-file">
+                    <i class="fas fa-times"></i> Remove
+                </button>
+            </div>
+        </div>
+
+        <div id="processing-indicator" class="text-center d-none">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-2">Processing the Excel file...</p>
+        </div>
+    </div>
+
+    <!-- Student Preview Section (initially hidden) -->
+    <div id="students-preview-section" class="admission-section d-none">
+        <h4><i class="fas fa-list me-2"></i>Student Data Preview</h4>
+        
+        <div class="table-container">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Date of Birth</th>
+                            <th scope="col">Gender</th>
+                            <th scope="col">Class</th>
+                            <th scope="col">Roll No</th>
+                            <th scope="col">Mobile</th>
+                        </tr>
+                    </thead>
+                    <tbody id="students-preview-body">
+                        <!-- Students data will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="alert alert-warning mt-3">
+            <i class="fas fa-exclamation-triangle me-2"></i> Please review the data before importing. Make sure all entries are correct.
+        </div>
+
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button type="button" class="btn btn-secondary me-md-2" id="cancel-import">
+                <i class="fas fa-times me-1"></i> Cancel
+            </button>
+            <button type="button" class="btn btn-primary" id="confirm-import">
+                <i class="fas fa-file-import me-1"></i> Import Students
+            </button>
+        </div>
+    </div>
+
+    <!-- Import Results Section (initially hidden) -->
+    <div id="import-results-section" class="admission-section d-none">
+        <h4><i class="fas fa-check-circle me-2"></i>Import Results</h4>
+        
+        <div class="alert alert-success">
+            <i class="fas fa-check me-2"></i> 
+            <span id="success-message">Successfully imported 0 students.</span>
+        </div>
+        
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button type="button" class="btn btn-outline-primary" id="import-more">
+                <i class="fas fa-plus me-1"></i> Import More
+            </button>
+            <button type="button" class="btn btn-primary" id="view-students">
+                <i class="fas fa-eye me-1"></i> View Students
+            </button>
+        </div>
+    </div>
+</div>

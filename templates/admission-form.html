@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admission Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        .print-form {
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .school-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .school-logo {
+            max-width: 80px;
+            height: auto;
+        }
+        .school-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 10px 0 5px;
+        }
+        .school-address {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 5px;
+        }
+        .form-title {
+            text-align: center;
+            font-weight: bold;
+            font-size: 18px;
+            text-transform: uppercase;
+            margin: 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #333;
+        }
+        .form-section {
+            margin-bottom: 20px;
+        }
+        .section-title {
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #ddd;
+        }
+        .form-row {
+            display: flex;
+            margin-bottom: 10px;
+        }
+        .form-group {
+            flex: 1;
+            margin-right: 15px;
+        }
+        .form-group:last-child {
+            margin-right: 0;
+        }
+        .form-label {
+            font-weight: bold;
+            font-size: 14px;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-value {
+            border: 1px solid #ddd;
+            padding: 8px;
+            min-height: 20px;
+            font-size: 14px;
+            background-color: #f9f9f9;
+        }
+        .photo-box {
+            border: 1px solid #ddd;
+            width: 120px;
+            height: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: auto;
+            background-color: #f9f9f9;
+        }
+        .signature-section {
+            margin-top: 50px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .signature-box {
+            width: 200px;
+            text-align: center;
+        }
+        .signature-line {
+            border-top: 1px solid #333;
+            margin-top: 50px;
+            padding-top: 5px;
+        }
+        /* Print Styles */
+        @media print {
+            body {
+                margin: 0;
+                padding: 0;
+                background: #fff;
+            }
+            .print-form {
+                width: 100%;
+                box-shadow: none;
+                border: none;
+                padding: 0;
+            }
+            .no-print {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="print-form">
+        <!-- School Header -->
+        <div class="school-header">
+            <img src="../static/images/logos/school_logo.svg" alt="School Logo" class="school-logo" id="school-logo">
+            <h1 class="school-name" id="school-name">School Name</h1>
+            <p class="school-address" id="school-address">123 School Address, City, State - PIN</p>
+            <p class="school-address" id="school-contact">Phone: 123-456-7890 | Email: info@school.com</p>
+        </div>
+
+        <!-- Form Title -->
+        <div class="form-title">Student Admission Form</div>
+
+        <!-- Form Content -->
+        <div class="form-content">
+            <div class="form-row">
+                <div class="form-group" style="flex: 3;">
+                    <div class="section-title">Registration Details</div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <span class="form-label">Admission No.</span>
+                            <div class="form-value" id="admission-no">ADM12345</div>
+                        </div>
+                        <div class="form-group">
+                            <span class="form-label">Date of Admission</span>
+                            <div class="form-value" id="admission-date">01-01-2023</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" style="flex: 1;">
+                    <div class="photo-box">
+                        <span>Photograph</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Personal Information -->
+            <div class="form-section">
+                <div class="section-title">Personal Information</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <span class="form-label">First Name</span>
+                        <div class="form-value" id="first-name">John</div>
+                    </div>
+                    <div class="form-group">
+                        <span class="form-label">Middle Name</span>
+                        <div class="form-value" id="middle-name"></div>
+                    </div>
+                    <div class="form-group">
+                        <span class="form-label">Last Name</span>
+                        <div class="form-value" id="last-name">Doe</div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <span class="form-label">Date of Birth</span>
+                        <div class="form-value" id="date-of-birth">01-01-2010</div>
+                    </div>
+                    <div class="form-group">
+                        <span class="form-label">Gender</span>
+                        <div class="form-value" id="gender">Male</div>
+                    </div>
+                    <div class="form-group">
+                        <span class="form-label">Blood Group</span>
+                        <div class="form-value" id="blood-group">A+</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Academic Information -->
+            <div class="form-section">
+                <div class="section-title">Academic Information</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <span class="form-label">Class</span>
+                        <div class="form-value" id="class">X</div>
+                    </div>
+                    <div class="form-group">
+                        <span class="form-label">Section</span>
+                        <div class="form-value" id="section">A</div>
+                    </div>
+                    <div class="form-group">
+                        <span class="form-label">Roll Number</span>
+                        <div class="form-value" id="roll-no">1001</div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <span class="form-label">Previous School (if any)</span>
+                        <div class="form-value" id="previous-school"></div>
+                    </div>
+                    <div class="form-group">
+                        <span class="form-label">Previous Class</span>
+                        <div class="form-value" id="previous-class"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Information -->
+            <div class="form-section">
+                <div class="section-title">Contact Information</div>
+                <div class="form-row">
+                    <div class="form-group" style="flex: 2;">
+                        <span class="form-label">Address</span>
+                        <div class="form-value" id="address">123 Main St, Apartment 4B</div>
+                    </div>
+                    <div class="form-group">
+                        <span class="form-label">City</span>
+                        <div class="form-value" id="city">New York</div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <span class="form-label">PIN Code</span>
+                        <div class="form-value" id="pin-code">10001</div>
+                    </div>
+                    <div class="form-group">
+                        <span class="form-label">Mobile Number</span>
+                        <div class="form-value" id="mobile-number">123-456-7890</div>
+                    </div>
+                    <div class="form-group">
+                        <span class="form-label">Email Address</span>
+                        <div class="form-value" id="email"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Parent/Guardian Information -->
+            <div class="form-section">
+                <div class="section-title">Parent/Guardian Information</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <span class="form-label">Father's Name</span>
+                        <div class="form-value" id="father-name">John Doe Sr.</div>
+                    </div>
+                    <div class="form-group">
+                        <span class="form-label">Father's Occupation</span>
+                        <div class="form-value" id="father-occupation">Engineer</div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <span class="form-label">Mother's Name</span>
+                        <div class="form-value" id="mother-name">Jane Doe</div>
+                    </div>
+                    <div class="form-group">
+                        <span class="form-label">Mother's Occupation</span>
+                        <div class="form-value" id="mother-occupation">Doctor</div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <span class="form-label">Guardian's Name (if not parent)</span>
+                        <div class="form-value" id="guardian-name"></div>
+                    </div>
+                    <div class="form-group">
+                        <span class="form-label">Relation with Guardian</span>
+                        <div class="form-value" id="guardian-relation"></div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <span class="form-label">Parent/Guardian Mobile</span>
+                        <div class="form-value" id="parent-mobile">987-654-3210</div>
+                    </div>
+                    <div class="form-group">
+                        <span class="form-label">Parent/Guardian Email</span>
+                        <div class="form-value" id="parent-email"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Declaration -->
+            <div class="form-section">
+                <div class="section-title">Declaration</div>
+                <p style="font-size: 14px;">
+                    I hereby declare that all the information provided above is correct to the best of my knowledge. I understand that providing
+                    false information may result in the cancellation of admission. I agree to abide by all the rules and regulations of the
+                    school.
+                </p>
+            </div>
+
+            <!-- Signature Section -->
+            <div class="signature-section">
+                <div class="signature-box">
+                    <div class="signature-line">Parent/Guardian's Signature</div>
+                </div>
+                <div class="signature-box">
+                    <div class="signature-line">Principal's Signature</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

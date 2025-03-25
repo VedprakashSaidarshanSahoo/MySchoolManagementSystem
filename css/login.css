@@ -1,0 +1,81 @@
+/* Login Page Styles */
+.login-page {
+    background-color: #f8f9fa;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.login-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 2.5rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.login-logo {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+}
+
+.login-card h2 {
+    font-weight: 700;
+    color: #333;
+}
+
+.login-card p {
+    color: #6c757d;
+}
+
+.login-card .btn-primary {
+    font-weight: 600;
+    padding: 0.6rem 1rem;
+}
+
+.login-card .form-label {
+    font-weight: 500;
+}
+
+.login-card .input-group-text {
+    background-color: #f8f9fa;
+    border-right: none;
+}
+
+.login-card .form-control {
+    border-left: none;
+}
+
+.login-card .form-control:focus {
+    box-shadow: none;
+    border-color: #ced4da;
+}
+
+.login-card .form-control:focus + .input-group-text {
+    border-color: #ced4da;
+}
+
+.login-card a {
+    color: #0d6efd;
+    text-decoration: none;
+}
+
+.login-card a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+    .login-card {
+        padding: 1.5rem;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .login-logo {
+        width: 80px;
+        height: 80px;
+    }
+}

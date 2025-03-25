@@ -1,0 +1,414 @@
+<!-- Teacher Attendance Page -->
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Attendance Management</h5>
+                    <div>
+                        <button type="button" class="btn btn-outline-primary me-2" id="attendance-history-btn">
+                            <i class="fas fa-history me-1"></i> Attendance History
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-md-4 mb-3">
+                            <label for="attendance-date" class="form-label">Date</label>
+                            <input type="date" class="form-control" id="attendance-date" value="">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="attendance-class" class="form-label">Class</label>
+                            <select class="form-select" id="attendance-class">
+                                <option value="">Select Class</option>
+                                <option value="X-A">X-A</option>
+                                <option value="X-B">X-B</option>
+                                <option value="XI-A">XI-A</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="attendance-subject" class="form-label">Subject</label>
+                            <select class="form-select" id="attendance-subject">
+                                <option value="">Select Subject</option>
+                                <option value="Mathematics">Mathematics</option>
+                                <option value="Physics">Physics</option>
+                                <option value="Chemistry">Chemistry</option>
+                                <option value="Biology">Biology</option>
+                                <option value="English">English</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <div class="alert alert-info" id="attendance-info">
+                                <i class="fas fa-info-circle me-2"></i> Select a class and subject to load students.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3" id="attendance-stats-row" style="display: none;">
+                        <div class="col-md-3 mb-2">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                Present</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="present-count">0</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-check-circle fa-2x text-success"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-2">
+                            <div class="card border-left-danger shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                                Absent</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="absent-count">0</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-times-circle fa-2x text-danger"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-2">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                Leave</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="leave-count">0</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-calendar-minus fa-2x text-warning"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-2">
+                            <div class="card border-left-info shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                                Total</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="total-count">0</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-users fa-2x text-info"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3" id="mark-all-row" style="display: none;">
+                        <div class="col-12">
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-success btn-sm" id="mark-all-present-btn">
+                                    <i class="fas fa-check-circle me-1"></i> Mark All Present
+                                </button>
+                                <button type="button" class="btn btn-danger btn-sm" id="mark-all-absent-btn">
+                                    <i class="fas fa-times-circle me-1"></i> Mark All Absent
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th style="width: 50px;">#</th>
+                                    <th>Roll No</th>
+                                    <th>Name</th>
+                                    <th class="text-center">Status</th>
+                                    <th>Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody id="attendance-table-body">
+                                <!-- Attendance rows will be added dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="row mt-4">
+                        <div class="col-12 text-end">
+                            <button type="button" class="btn btn-primary" id="save-attendance-btn" disabled>
+                                <i class="fas fa-save me-1"></i> Save Attendance
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row" id="attendance-history-section" style="display: none;">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Attendance History</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-md-3 mb-3">
+                            <label for="history-from-date" class="form-label">From Date</label>
+                            <input type="date" class="form-control" id="history-from-date">
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="history-to-date" class="form-label">To Date</label>
+                            <input type="date" class="form-control" id="history-to-date">
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="history-class" class="form-label">Class</label>
+                            <select class="form-select" id="history-class">
+                                <option value="">All Classes</option>
+                                <option value="X-A">X-A</option>
+                                <option value="X-B">X-B</option>
+                                <option value="XI-A">XI-A</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="history-subject" class="form-label">Subject</label>
+                            <select class="form-select" id="history-subject">
+                                <option value="">All Subjects</option>
+                                <option value="Mathematics">Mathematics</option>
+                                <option value="Physics">Physics</option>
+                                <option value="Chemistry">Chemistry</option>
+                                <option value="Biology">Biology</option>
+                                <option value="English">English</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-12 text-end">
+                            <button type="button" class="btn btn-primary" id="filter-history-btn">
+                                <i class="fas fa-filter me-1"></i> Filter
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary" id="export-history-btn">
+                                <i class="fas fa-file-export me-1"></i> Export
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Class</th>
+                                    <th>Subject</th>
+                                    <th>Present</th>
+                                    <th>Absent</th>
+                                    <th>Leave</th>
+                                    <th>Percentage</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="attendance-history-body">
+                                <!-- History rows will be added dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- View Attendance Details Modal -->
+<div class="modal fade" id="viewAttendanceModal" tabindex="-1" aria-labelledby="viewAttendanceModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="viewAttendanceModalLabel">Attendance Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <p><strong>Date:</strong> <span id="view-attendance-date"></span></p>
+                    </div>
+                    <div class="col-md-4">
+                        <p><strong>Class:</strong> <span id="view-attendance-class"></span></p>
+                    </div>
+                    <div class="col-md-4">
+                        <p><strong>Subject:</strong> <span id="view-attendance-subject"></span></p>
+                    </div>
+                </div>
+                
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Roll No</th>
+                                <th>Name</th>
+                                <th>Status</th>
+                                <th>Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody id="view-attendance-body">
+                            <!-- Attendance details will be added dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="print-attendance-details-btn">
+                    <i class="fas fa-print me-2"></i> Print
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Attendance Modal -->
+<div class="modal fade" id="editAttendanceModal" tabindex="-1" aria-labelledby="editAttendanceModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editAttendanceModalLabel">Edit Attendance</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <p><strong>Date:</strong> <span id="edit-attendance-date"></span></p>
+                    </div>
+                    <div class="col-md-4">
+                        <p><strong>Class:</strong> <span id="edit-attendance-class"></span></p>
+                    </div>
+                    <div class="col-md-4">
+                        <p><strong>Subject:</strong> <span id="edit-attendance-subject"></span></p>
+                    </div>
+                </div>
+                
+                <div class="row mb-3" id="edit-attendance-stats-row">
+                    <div class="col-md-3 mb-2">
+                        <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                            Present</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="edit-present-count">0</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-check-circle fa-2x text-success"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <div class="card border-left-danger shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                            Absent</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="edit-absent-count">0</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-times-circle fa-2x text-danger"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <div class="card border-left-warning shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                            Leave</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="edit-leave-count">0</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-calendar-minus fa-2x text-warning"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <div class="card border-left-info shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                            Total</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="edit-total-count">0</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-users fa-2x text-info"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Roll No</th>
+                                <th>Name</th>
+                                <th>Status</th>
+                                <th>Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody id="edit-attendance-body">
+                            <!-- Editable attendance rows will be added dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="update-attendance-btn">
+                    <i class="fas fa-save me-2"></i> Update
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .border-left-success {
+        border-left: 0.25rem solid #1cc88a !important;
+    }
+    .border-left-danger {
+        border-left: 0.25rem solid #e74a3b !important;
+    }
+    .border-left-warning {
+        border-left: 0.25rem solid #f6c23e !important;
+    }
+    .border-left-info {
+        border-left: 0.25rem solid #36b9cc !important;
+    }
+    .text-gray-800 {
+        color: #5a5c69 !important;
+    }
+    .status-badge {
+        width: 100px;
+        text-align: center;
+    }
+</style>
