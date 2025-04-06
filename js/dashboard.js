@@ -13,7 +13,7 @@ function initDashboard() {
     console.log('Initializing dashboard...');
     
     // Update dashboard statistics
-    updateDashboardStats();
+    // updateDashboardStats();
     
     // Create charts
     createCharts();
@@ -22,18 +22,20 @@ function initDashboard() {
     setupDashboardEventListeners();
     
     // Load recent activities (mock data for now)
-    loadRecentActivities();
+    // loadRecentActivities();
     
     // Load upcoming birthdays from student data
-    loadUpcomingBirthdays();
+    // loadUpcomingBirthdays();
 }
 
 /**
  * Update dashboard statistics
  */
-function updateDashboardStats() {
+async function updateDashboardStats() {
     // Get all students
-    const students = getAllStudents();
+    const students = await getAllStudents();
+
+    console.log('Fetched students:', students);
     
     // Update total students count
     const totalStudentsEl = document.getElementById('total-students');
@@ -71,8 +73,8 @@ function updateDashboardStats() {
 /**
  * Create dashboard charts
  */
-function createCharts() {
-    const stats = updateDashboardStats();
+async function createCharts() {
+    const stats = await updateDashboardStats();
     
     // Class Distribution Chart
     const classChartCtx = document.getElementById('class-distribution-chart');

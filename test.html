@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask GET & POST Request Demo</title>
+</head>
+<body>
+    <h2>GET Request</h2>
+    <button onclick="fetchData()">Get Data</button>
+    <p id="get-response"></p>
+
+    <h2>POST Request</h2>
+    <form onsubmit="sendData(event)">
+        <input type="text" id="nameInput" placeholder="Enter your name" required>
+        <button type="submit">Send</button>
+    </form>
+    <p id="post-response"></p>
+
+    <script>
+        // const baseUrl = 'http://localhost:8000';
+        const baseUrl = 'https://proud-new-sponge.ngrok-free.app';
+
+        // GET Request
+        function fetchData() {
+            fetch(baseUrl + '/hello')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('get-response').innerText = data.message;
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        // POST Request
+        function sendData(event) {
+            event.preventDefault(); // Prevent form submission refresh
+
+            const name = document.getElementById('nameInput').value;
+
+            fetch(baseUrl + '/hello', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ name: name })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('post-response').innerText = data.message;
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>

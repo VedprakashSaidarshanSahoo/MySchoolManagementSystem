@@ -1,9 +1,10 @@
 export function GetSomething() {
 
     console.log("Get Get Something...");
-
+    const base_url = "https://nicely-clear-joey.ngrok-free.app";
     // const fetch = require('node-fetch');  // Import node-fetch for Node.js environment
-    const endpoint = "https://nicely-clear-joey.ngrok-free.app/students/post_student";
+    // const endpoint = base_url + "/students/post_student"; // Student Admission Endpoint
+    const endpoint = base_url + "/academic/post_academic";
 
     const jsonData = {
         "id": "103",
@@ -16,6 +17,15 @@ export function GetSomething() {
         "photoUrl": "assdfasdfasdfasdfasdfasdfsadf"
     };
 
+    const jsonAcademicData = {
+        "admission_class" : "X",
+        "section" : "A",
+        "roll_no" : 102,
+        "previous_school" : "XYZ",
+        "previous_class" : "IX"
+ 
+ }
+
     console.error("Something Went Wrong...");
 
     // Use the fetch API to send a POST request
@@ -24,7 +34,7 @@ export function GetSomething() {
         headers: {
             'Content-Type': 'application/json', // The type of data being sent
         },
-        body: JSON.stringify(jsonData), // Convert the JSON object to a string
+        body: JSON.stringify(jsonAcademicData), // Convert the JSON object to a string
     })
         .then(response => {
             if (!response.ok) {
@@ -41,3 +51,5 @@ export function GetSomething() {
             console.error('Error:', error); // Catch any network errors
         });
 }
+
+// GetSomething();

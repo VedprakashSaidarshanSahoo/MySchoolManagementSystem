@@ -6,16 +6,16 @@
 // When DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     // Check if user is logged in
-    const currentUser = getCurrentUser();
-    if (!currentUser) {
-        // Redirect to login if not logged in
-        // window.location.href = 'login.html';
-        return;
-    } else if (currentUser.type === 'teacher') {
-        // Redirect to teacher portal
-        window.location.href = 'teacher.html';
-        return;
-    }
+    // const currentUser = getCurrentUser();
+    // if (!currentUser) {
+    //     // Redirect to login if not logged in
+    //     window.location.href = 'login.html';
+    //     return;
+    // } else if (currentUser.type === 'teacher') {
+    //     // Redirect to teacher portal
+    //     window.location.href = 'teacher.html';
+    //     return;
+    // }
 
     // Initialize the application
     initApp();
@@ -26,13 +26,13 @@ document.addEventListener('DOMContentLoaded', () => {
  */
 function initApp() {
     console.log('Initializing School Management System...');
-    
+
     // Set admin name
     setAdminInfo();
-    
+
     // Setup event listeners
     setupEventListeners();
-    
+
     // Load default page (dashboard)
     loadPage('dashboard');
 }
@@ -43,7 +43,7 @@ function initApp() {
 function setAdminInfo() {
     const currentUser = getCurrentUser();
     const adminNameElement = document.getElementById('admin-name');
-    
+
     if (adminNameElement && currentUser) {
         adminNameElement.textContent = currentUser.name;
     }
@@ -55,32 +55,32 @@ function setAdminInfo() {
 function setupEventListeners() {
     // Menu items
     const menuItems = document.querySelectorAll('.sidebar-menu .menu-item');
-    
+
     menuItems.forEach(item => {
         // Skip logout button
         if (item.id === 'logout-button') return;
-        
+
         item.addEventListener('click', (e) => {
             e.preventDefault();
-            
+
             // Get page to load
             const pageName = item.dataset.page;
             if (!pageName) return;
-            
+
             // Update active menu item
             menuItems.forEach(mi => mi.classList.remove('active'));
             item.classList.add('active');
-            
+
             // Load page
             loadPage(pageName);
-            
+
             // Close sidebar on mobile after selection
             if (window.innerWidth < 768) {
                 document.getElementById('sidebar').classList.remove('show');
             }
         });
     });
-    
+
     // Logout buttons
     const logoutButtons = document.querySelectorAll('#logout-button, #header-logout');
     logoutButtons.forEach(button => {
@@ -89,18 +89,18 @@ function setupEventListeners() {
             logout();
         });
     });
-    
+
     // Mobile menu toggle
     const menuToggle = document.getElementById('menu-toggle');
     const sidebar = document.getElementById('sidebar');
     const closeSidebar = document.getElementById('close-sidebar');
-    
+
     if (menuToggle && sidebar) {
         menuToggle.addEventListener('click', () => {
             sidebar.classList.toggle('show');
         });
     }
-    
+
     if (closeSidebar && sidebar) {
         closeSidebar.addEventListener('click', () => {
             sidebar.classList.remove('show');
@@ -115,14 +115,14 @@ function setupEventListeners() {
 function loadPage(pageName) {
     const pageContent = document.getElementById('page-content');
     const headerTitle = document.querySelector('.header-title h4');
-    
+
     if (!pageContent) return;
-    
+
     // Set header title based on the page
     if (headerTitle) {
         headerTitle.textContent = getPageTitle(pageName);
     }
-    
+
     // Show loading state
     pageContent.innerHTML = `
         <div class="loader-container">
@@ -131,10 +131,10 @@ function loadPage(pageName) {
             </div>
         </div>
     `;
-    
+
     // Get the page URL
     const pageUrl = getPageUrl(pageName);
-    
+
     // Load the page content
     fetch(pageUrl)
         .then(response => {
@@ -146,13 +146,13 @@ function loadPage(pageName) {
         .then(html => {
             // Update page content
             pageContent.innerHTML = html;
-            
+
             // Initialize page-specific scripts
             initPageScripts(pageName);
         })
         .catch(error => {
             console.error('Error loading page:', error);
-            
+
             // Show error message
             pageContent.innerHTML = `
                 <div class="alert alert-danger m-3">
@@ -184,14 +184,16 @@ function getPageUrl(pageName) {
             return 'pages/class-management.html';
         case 'teacher-management':
             return 'pages/teacher-management.html';
-        case 'attendance':
-            return 'pages/attendance.html';
+        case 'parent-management':
+            return 'pages/parent-management.html';
+        // case 'attendance':
+        //     return 'pages/attendance.html';
         case 'print-forms':
             return 'pages/print-forms.html';
-        case 'settings':
-            return 'pages/settings.html';
-        default:
-            return 'pages/dashboard.html';
+        // case 'settings':
+        //     return 'pages/settings.html';
+        // default:
+        //     return 'pages/dashboard.html';
     }
 }
 
@@ -214,14 +216,16 @@ function getPageTitle(pageName) {
             return 'Class Management';
         case 'teacher-management':
             return 'Teacher Management';
-        case 'attendance':
-            return 'Attendance';
+        case 'parent-management':
+            return 'Parent Management';
+        // case 'attendance':
+        //     return 'Attendance';
         case 'print-forms':
             return 'Print Forms';
-        case 'settings':
-            return 'Settings';
-        default:
-            return 'Dashboard';
+        // case 'settings':
+        //     return 'Settings';
+        // default:
+        //     return 'Dashboard';
     }
 }
 
@@ -231,7 +235,7 @@ function getPageTitle(pageName) {
  */
 function initPageScripts(pageName) {
     console.log(`Initializing scripts for page: ${pageName}`);
-    
+
     // Run page-specific initialization functions
     switch (pageName) {
         case 'dashboard':
@@ -269,11 +273,29 @@ function initPageScripts(pageName) {
                 initTeacherManagement();
             }
             break;
-        case 'attendance':
-            if (typeof initAttendanceManagement === 'function') {
-                initAttendanceManagement();
-            }
-            break;
+        // case 'attendance':
+        //     if (typeof initAttendanceManagement === 'function') {
+        //         initAttendanceManagement();
+        //     }
+        //     break;
         // Add other page initializations as needed
+    }
+}
+
+/**
+ * Remove a period column from the timetable
+ */
+function removePeriod() {
+    const table = document.getElementById('timetable');
+    const headerRow = table.querySelector('thead tr');
+    const bodyRows = table.querySelectorAll('tbody tr');
+
+    // Ensure there are more than one period columns to remove
+    if (headerRow.children.length > 2) {
+        headerRow.removeChild(headerRow.children[headerRow.children.length - 2]);
+
+        bodyRows.forEach(row => {
+            row.removeChild(row.children[row.children.length - 1]);
+        });
     }
 }

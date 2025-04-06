@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="324" height="204" viewBox="0 0 242.88 153" preserveAspectRatio="xMidYMid meet" version="1.0">
+  <defs>
+    <clipPath id="clip1">
+      <path d="M0.73 0h241.3v152.01H0.73z" />
+    </clipPath>
+    <clipPath id="clip2">
+      <path d="M162.54 57h63.55v65H162.54z" />
+    </clipPath>
+    <clipPath id="clip3">
+      <path d="M226.04 111.4c0 5.97-4.84 10.8-10.8 10.8h-41.78c-5.97 0-10.8-4.84-10.8-10.8V67.48c0-5.97 4.84-10.8 10.8-10.8h41.78c5.97 0 10.8 4.84 10.8 10.8v43.92z" />
+    </clipPath>
+  </defs>
+  <g clip-path="url(#clip1)">
+    <rect width="242.88" height="153" fill="#ffffff" />
+  </g>
+  <g clip-path="url(#clip2)">
+    <g clip-path="url(#clip3)">
+      <image x="110.23" y="56.68" width="167.99" height="134.4" xlink:href="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD..." />
+    </g>
+  </g>
+  <g>
+    <rect x="161.89" y="55.92" width="64.97" height="67.05" fill="#004aad" />
+  </g>
+  <g>
+    <path d="M246.41-4.1v37.96H-3.89V17.76h126.37c0.6 0 1.19-0.08 1.78-0.23 0.59-0.15 1.14-0.38 1.64-0.68 0.5-0.3 0.97-0.65 1.39-1.05 0.42-0.4 0.79-0.85 1.11-1.34l8.09-13.99c0.53-0.85 1.16-1.62 1.84-2.3 0.68-0.68 1.47-1.26 2.34-1.71 0.87-0.45 1.79-0.81 2.75-1.06 0.96-0.25 1.95-0.38 2.96-0.38h99.87z" fill="#011f49" />
+    <path d="M126.17-13.52H-3.55v26.85h117.45c0.72 0 1.44-0.09 2.15-0.27 0.71-0.18 1.38-0.43 2.01-0.75 0.63-0.32 1.22-0.71 1.76-1.16 0.54-0.45 1.02-0.96 1.45-1.53l9.36-15.87c2.12-3.39-0.33-7.8-4.33-7.8z" fill="#004aad" />
+    <path d="M246.41 7.25v26.61H131.24c0.18-0.54 0.44-1.06 0.77-1.55l12.36-19.77c0.5-0.81 1.1-1.54 1.77-2.2 0.67-0.66 1.44-1.22 2.28-1.67 0.84-0.45 1.73-0.79 2.67-1.02 0.94-0.23 1.89-0.35 2.87-0.35h92.85z" fill="#004aad" />
+    <path d="M246.41 138.03v37.96H-3.89v-16.11h126.37c0.6 0 1.19-0.08 1.78-0.23 0.59-0.15 1.14-0.38 1.64-0.68 0.5-0.3 0.97-0.65 1.39-1.05 0.42-0.4 0.79-0.85 1.11-1.34l8.09-13.99c0.53-0.85 1.16-1.62 1.84-2.3 0.68-0.68 1.47-1.26 2.34-1.71 0.87-0.45 1.79-0.81 2.75-1.06 0.96-0.25 1.95-0.38 2.96-0.38h99.87z" fill="#011f49" />
+    <path d="M126.17 128.61H-3.55v26.85h117.45c0.72 0 1.44-0.09 2.15-0.27 0.71-0.18 1.38-0.43 2.01-0.75 0.63-0.32 1.22-0.71 1.76-1.16 0.54-0.45 1.02-0.96 1.45-1.53l9.36-15.87c2.12-3.39-0.33-7.8-4.33-7.8z" fill="#004aad" />
+    <path d="M246.41 149.37v26.61H131.24c0.18-0.54 0.44-1.06 0.77-1.55l12.36-19.77c0.5-0.81 1.1-1.54 1.77-2.2 0.67-0.66 1.44-1.22 2.28-1.67 0.84-0.45 1.73-0.79 2.67-1.02 0.94-0.23 1.89-0.35 2.87-0.35h92.85z" fill="#004aad" />
+  </g>
+  <g fill="#201c11">
+    <!-- Name Field -->
+    <text x="20" y="50" font-family="bold" font-size="18" fill="#000" font-weight="bold">
+      STUDENT ID CARD
+    </text>
+    <text x="20" y="80" font-family="bold" font-size="14" fill="#000" font-weight="bold">
+      Name: <tspan id="student-name">John Doe</tspan>
+    </text>
+    <!-- Adding placeholders -->
+    <text x="20" y="110" font-family="bold" font-size="14" fill="#000" font-weight="bold">
+      Here in each day: <tspan id="daily-text">[Placeholder]</tspan>
+    </text>
+    <text x="20" y="140" font-family="bold" font-size="14" fill="#000" font-weight="bold">
+      Add text here to drop to adding different subject: <tspan id="subject-text">[Placeholder]</tspan>
+    </text>
+    <text x="20" y="170" font-family="bold" font-size="14" fill="#000" font-weight="bold">
+      Time Format: <tspan id="time-format">[Placeholder]</tspan>
+    </text>
+  </g>
+</svg>

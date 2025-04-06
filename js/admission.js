@@ -3,11 +3,31 @@
  * Admission Module Script
  */
 
-import { GetSomething } from "../test.js";
 
 /**
  * Initialize the single admission form
  */
+function updateText() {
+    var checkbox = document.getElementById('agreement');
+    var textBox = document.getElementById('scholarshipTextbox');
+
+    // Check if the checkbox is checked
+    if (checkbox.checked) {
+        textBox.value = "I received scholarship";
+    } else {
+        textBox.value = ""; // Clear text if unchecked
+    }
+}
+
+function updateScholarshipField() {
+    const feeType = document.getElementById('feeType').value;
+    const scholarshipField = document.getElementById('scholarshipAmount');
+    scholarshipField.disabled = feeType !== 'Scholarship';
+    if (feeType !== 'Scholarship') {
+        scholarshipField.value = '';
+    }
+}
+
 function initSingleAdmission() {
     console.log('Initializing single admission form...');
     
@@ -37,14 +57,14 @@ function setupAdmissionForm() {
     }
     
     // Disable submit button if form is invalid
-    const form = document.getElementById('admission-form');
-    if (form) {
-        form.querySelectorAll('input, select, textarea').forEach(input => {
-            input.addEventListener('input', () => {
-                validateAdmissionForm();
-            });
-        });
-    }
+    // const form = document.getElementById('admission-form');
+    // if (form) {
+    //     form.querySelectorAll('input, select, textarea').forEach(input => {
+    //         input.addEventListener('input', () => {
+    //             validateAdmissionForm();
+    //         });
+    //     });
+    // }
 }
 
 /**
@@ -52,16 +72,20 @@ function setupAdmissionForm() {
  */
 function setupAdmissionEventListeners() {
     const form = document.getElementById('admission-form');
+    const submit_button = document.getElementById('submit_student_form');
     if (form) {
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
+        submit_button.addEventListener('click', (event) => {
+            event.preventDefault();
             
+            //Testing Network Sending Connectivity....
+            postAllStudents();
             // Validate form
             const isValid = validateAdmissionForm();
             if (!isValid) {
                 showAlert('Please fill all required fields correctly', 'warning');
                 return;
             }
+            validateParentGuardianInfo();
             
             // Collect form data
             const formData = new FormData(form);
@@ -103,6 +127,60 @@ function validateAdmissionForm() {
 }
 
 /**
+ * Validate parent/guardian information
+ * @returns {boolean} True if at least one set of information is complete, false otherwise
+ */
+function validateParentGuardianInfo() {
+    const fatherFields = [
+        document.getElementById('fatherName'),
+        document.getElementById('fathersOccupation'),
+        document.getElementById('fathersIdProof'),
+        document.getElementById('fathersEmailId'),
+        document.getElementById('fathesrNumber')
+    ];
+
+    const motherFields = [
+        document.getElementById('motherName'),
+        document.getElementById('motherOccupation'),
+        document.getElementById('mothersIdProof'),
+        document.getElementById('mothersEmailId'),
+        document.getElementById('mothersNumber')
+    ];
+
+    const guardianFields = [
+        document.getElementById('guardianName'),
+        document.getElementById('guardianOccupation'),
+        document.getElementById('guardianId'),
+        document.getElementById('guardiansEmailId'),
+        document.getElementById('guardiansNumber')
+    ];
+
+    function isComplete(fields) {
+        return fields.every(field => field && field.value.trim() !== '');
+    }
+
+    if (!isComplete(fatherFields) && !isComplete(motherFields) && !isComplete(guardianFields)) {
+        alert('Please complete at least one set of information: Father, Mother, or Guardian.');
+        return false;
+    }
+
+    return true;
+}
+
+// Attach this validation to the form submission
+// const admissionForm = document.getElementById('admission-form');
+// if (admissionForm) {
+//     admissionForm.addEventListener('submit', function (event) {
+//         if (!validateParentGuardianInfo()) {
+//             console.log("Submit Clicked...");
+//             event.preventDefault();
+//         }
+//     });
+
+    
+// }
+
+/**
  * Save student data to localStorage
  * @param {object} studentData - The student data to save
  */
@@ -129,8 +207,6 @@ function saveStudent(studentData) {
     localStorage.setItem('students', JSON.stringify(students));
 
     console.log(JSON.stringify(studentData));
-
-    GetSomething();
     
     return true;
 }
@@ -263,8 +339,8 @@ function setupBulkImportEventListeners() {
  */
 function handleFileUpload(file) {
     // Check file type
-    if (!file.name.endsWith('.xlsx') && !file.name.endsWith('.xls')) {
-        showAlert('Please upload an Excel file (.xlsx or .xls)', 'danger');
+    if (!file.name.endsWith('.xlsx') && !file.name.endsWith('.xls') && !file.name.endsWith('.csv')) {
+        showAlert('Please upload a file in Excel (.xlsx, .xls) or CSV (.csv) format', 'danger');
         return;
     }
     
@@ -280,11 +356,54 @@ function handleFileUpload(file) {
         
         // Process the file
         setTimeout(() => {
-            // In a real app, we would use a library to parse the Excel file
+            // In a real app, we would use a library to parse the file
             // For the prototype, we'll simulate file processing
-            processExcelFile(file);
+            if (file.name.endsWith('.csv')) {
+                processCSVFile(file);
+            } else {
+                processExcelFile(file);
+            }
         }, 1000);
     }
+}
+
+/**
+ * Process the uploaded CSV file
+ * @param {File} file - The CSV file to process
+ */
+function processCSVFile(file) {
+    const reader = new FileReader();
+    reader.onload = function (event) {
+        const csvData = event.target.result;
+        const rows = csvData.split('\n').map(row => row.split(','));
+        const headers = rows[0];
+        const students = rows.slice(1).map(row => {
+            const student = {};
+            headers.forEach((header, index) => {
+                student[header.trim()] = row[index]?.trim();
+            });
+            return student;
+        });
+
+        // Simulate processing delay
+        setTimeout(() => {
+            // Hide processing indicator
+            const processingIndicator = document.getElementById('processing-indicator');
+            if (processingIndicator) {
+                processingIndicator.classList.add('d-none');
+            }
+            
+            // Update student count
+            const studentCount = document.getElementById('student-count');
+            if (studentCount) {
+                studentCount.textContent = `${students.length} students`;
+            }
+            
+            // Show student preview
+            showStudentPreview(students);
+        }, 1500);
+    };
+    reader.readAsText(file);
 }
 
 /**
@@ -308,9 +427,43 @@ function resetBulkImport() {
  * Download a template Excel file for student import
  */
 function downloadStudentTemplate() {
-    // In a real app, we would generate an Excel file for download
-    // For the prototype, we'll show an alert
-    showAlert('In a real app, this would download a template Excel file with the required columns', 'info');
+    // Sample data for the template
+    const sampleData = [
+        {
+            firstName: 'John',
+            lastName: 'Doe',
+            dateOfBirth: '2010-05-15',
+            gender: 'Male',
+            admissionClass: 'X',
+            section: 'A',
+            rollNo: '1001',
+            mobileNumber: '9876543210',
+            address: '123 Main St, City',
+            fatherName: 'James Doe',
+            parentMobile: '9876543211'
+        }
+    ];
+
+    // Convert sample data to CSV format
+    const csvContent = [
+        Object.keys(sampleData[0]).join(','), // Header row
+        ...sampleData.map(row => Object.values(row).join(',')) // Data rows
+    ].join('\n');
+
+    // Create a Blob for the CSV content
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+
+    // Create a temporary link to trigger the download
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'Student_Import_Template.csv';
+    document.body.appendChild(a);
+    a.click();
+
+    // Clean up
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
 }
 
 /**

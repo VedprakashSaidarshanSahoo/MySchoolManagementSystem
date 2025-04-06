@@ -566,59 +566,8 @@ function viewTeacherDetails(teacherId) {
  * @param {string} teacherId - Teacher ID
  */
 function editTeacher(teacherId) {
-    // Get teacher data from localStorage
-    const users = JSON.parse(localStorage.getItem('users') || '[]');
-    const teacher = users.find(user => user.id === teacherId && user.type === 'teacher');
-
-    if (!teacher) {
-        alert(`Teacher with ID ${teacherId} not found.`);
-        return;
-    }
-
-     // Populate the Edit Modal fields
-     document.getElementById('edit-teacher-id').value = teacher.id;
-     document.getElementById('edit-teacher-name').value = teacher.name;
-     document.getElementById('edit-teacher-email').value = teacher.email || '';
-     document.getElementById('edit-teacher-phone').value = teacher.phone || '';
- 
-     // Show the Edit Modal
-     const editModal = new bootstrap.Modal(document.getElementById('editTeacherModal'));
-     editModal.show();
- 
-     // Handle the Update button click
-     document.getElementById('update-teacher-btn').onclick = function () {
-         // Get updated values from the modal
-         const updatedName = document.getElementById('edit-teacher-name').value.trim();
-         const updatedEmail = document.getElementById('edit-teacher-email').value.trim();
-         const updatedPhone = document.getElementById('edit-teacher-phone').value.trim();
- 
-         // Validate required fields
-         if (!updatedName || !updatedEmail || !updatedPhone) {
-             alert('Please fill in all required fields.');
-             return;
-         }
- 
-         // Update the teacher object
-         teacher.name = updatedName;
-         teacher.email = updatedEmail;
-         teacher.phone = updatedPhone;
- 
-         // Save the updated teacher data back to localStorage
-         localStorage.setItem('users', JSON.stringify(users));
- 
-         // Show success message
-         alert(`Teacher ${updatedName} updated successfully.`);
- 
-         // Reload the teacher table
-         loadTeachers();
- 
-         // Close the modal
-         editModal.hide();
-     };
-
-
-
-    
+    // Implementation will be added in future updates
+    alert('Edit teacher functionality will be added in future updates');
 }
 
 /**

@@ -3,6 +3,23 @@
  * Utility Functions
  */
 
+// const API_BASE_URL = "https://proud-new-sponge.ngrok-free.app/api";
+const API_BASE_URL = "http://localhost:8000/api";
+const STUDENT_API_URL = `${API_BASE_URL}/students`;
+
+// Global subjects array
+let subjectsArray = JSON.parse(localStorage.getItem('subjectsArray')) || []; // Load existing subjects from localStorage
+
+// Utility function to save subjects to localStorage
+function saveSubjectsToLocalStorage(subjects) {
+    localStorage.setItem('subjectsArray', JSON.stringify(subjects));
+}
+
+// Utility function to get subjects from localStorage
+function getSubjectsFromLocalStorage() {
+    return JSON.parse(localStorage.getItem('subjectsArray')) || [];
+}
+
 /**
  * Show an alert message
  * @param {string} message - The message to show
@@ -46,9 +63,54 @@ function generateUniqueId() {
  * Get all students from localStorage
  * @returns {Array} Array of student objects
  */
-function getAllStudents() {
-    const students = localStorage.getItem('students');
-    return students ? JSON.parse(students) : [];
+async function getAllStudents() {
+    return new Promise((resolve, reject) => {
+        fetch(STUDENT_API_URL, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            mode: 'cors'
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Fetched students:', data);
+            resolve(data || []); // Resolve the promise with the fetched data
+        })
+        .catch(error => {
+            console.error('Error fetching students:', error);
+            reject(error); // Reject the promise in case of an error
+        });
+    });
+}
+
+function postAllStudents(studentData) {
+    // Store the JSON data in a variable
+    const studentPayload = JSON.stringify(studentData);
+
+    // Send the data to the API endpoint
+    fetch(STUDENT_API_URL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        mode: 'cors',
+        body: studentPayload
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to submit student data');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Student data submitted successfully:', data);
+        showAlert('Student data submitted successfully!', 'success');
+    })
+    .catch(error => {
+        console.error('Error submitting student data:', error);
+        showAlert('Error submitting student data. Please try again.', 'danger');
+    });
 }
 
 /**
@@ -56,8 +118,8 @@ function getAllStudents() {
  * @param {string} id - The student ID
  * @returns {object|null} The student object or null if not found
  */
-function getStudentById(id) {
-    const students = getAllStudents();
+async function getStudentById(id) {
+    const students = await getAllStudents(); // Await the promise to resolve
     return students.find(student => student.id === id) || null;
 }
 
@@ -92,10 +154,10 @@ function updateStudent(updatedStudent) {
  * Remove a student from localStorage
  * @param {string} id - The student ID
  */
-function removeStudent(id) {
-    const students = getAllStudents();
+async function removeStudent(id) {
+    const students = await getAllStudents(); // Await the promise to resolve
     const filteredStudents = students.filter(student => student.id !== id);
-    
+    console.log("To Be Deleted: ", filteredStudents);
     if (filteredStudents.length < students.length) {
         localStorage.setItem('students', JSON.stringify(filteredStudents));
         return true;
@@ -277,5 +339,23 @@ function displayImage(event) {
 
     if (file) {
         reader.readAsDataURL(file);
+    }
+}
+
+/**
+ * Remove a period from the timetable
+ */
+function removePeriod() {
+    const table = document.getElementById('timetable');
+    const headerRow = table.querySelector('thead tr');
+    const bodyRows = table.querySelectorAll('tbody tr');
+
+    // Ensure there are more than two columns (Day + at least one Period) to remove
+    if (headerRow.children.length > 2) {
+        headerRow.removeChild(headerRow.children[headerRow.children.length - 1]);
+
+        bodyRows.forEach(row => {
+            row.removeChild(row.children[row.children.length - 1]);
+        });
     }
 }

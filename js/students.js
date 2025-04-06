@@ -6,7 +6,29 @@
 /**
  * Initialize the student management page
  */
-function initStudentManagement() {
+async function initStudentManagement() {
+    console.log('Initializing student management...');
+    
+    // Setup search functionality
+    setupSearchFunctionality();
+    
+    // Load all students initially
+    try {
+        const students = await getAllStudents(); // Wait for the promise to resolve
+        displayStudents(students);
+    } catch (error) {
+        console.error('Error loading students:', error);
+        displayStudents([]); // Display empty state on error
+    }
+    
+    // Setup action buttons
+    setupStudentActionButtons();
+}
+
+/**
+ * Initialize the student management page
+ */
+function initParentManagement() {
     console.log('Initializing student management...');
     
     // Setup search functionality
@@ -62,28 +84,33 @@ function setupSearchFunctionality() {
     }
     
     // Helper function to perform search
-    function performSearch() {
+    async function performSearch() {
         if (!searchInput) return;
         
         const searchTerm = searchInput.value.trim();
         const type = searchType ? searchType.value : 'name';
         const classFilter = filterClass ? filterClass.value : '';
         
-        // Get all students
-        let students = getAllStudents();
-        
-        // Apply class filter
-        if (classFilter) {
-            students = students.filter(student => student.admissionClass === classFilter);
+        try {
+            // Get all students
+            let students = await getAllStudents(); // Wait for the promise to resolve
+            
+            // Apply class filter
+            if (classFilter) {
+                students = students.filter(student => student.admissionClass === classFilter);
+            }
+            
+            // Apply search if search term is not empty
+            if (searchTerm) {
+                students = searchStudents(searchTerm, type, students);
+            }
+            
+            // Display filtered students
+            displayStudents(students);
+        } catch (error) {
+            console.error('Error performing search:', error);
+            displayStudents([]); // Display empty state on error
         }
-        
-        // Apply search if search term is not empty
-        if (searchTerm) {
-            students = searchStudents(searchTerm, type, students);
-        }
-        
-        // Display filtered students
-        displayStudents(students);
     }
 }
 
@@ -128,45 +155,42 @@ function displayStudents(students) {
     const tableBody = document.getElementById('students-table-body');
     const emptyState = document.getElementById('empty-state');
     const loadingState = document.getElementById('loading-state');
-    
+
     if (!tableBody) return;
-    
+
+    // Debugging: Log students data
+    console.log('Displaying students:', students);
+
+    // Ensure students is an array
+    students = Array.isArray(students) ? students : [];
+
     // Show loading state
     if (loadingState) {
         loadingState.classList.remove('d-none');
     }
-    if (tableBody) {
-        tableBody.classList.add('d-none');
-    }
-    if (emptyState) {
-        emptyState.classList.add('d-none');
-    }
-    
+    tableBody.classList.add('d-none');
+    emptyState.classList.add('d-none');
+
     // Simulate loading delay
     setTimeout(() => {
         // Hide loading state
-        if (loadingState) {
-            loadingState.classList.add('d-none');
-        }
-        
+        loadingState.classList.add('d-none');
+
         // Check if students exist
-        if (!students || students.length === 0) {
-            if (emptyState) {
-                emptyState.classList.remove('d-none');
-            }
-            if (tableBody) {
-                tableBody.innerHTML = '';
-                tableBody.classList.add('d-none');
-            }
+        if (students.length === 0) {
+            emptyState.classList.remove('d-none');
+            tableBody.innerHTML = '';
+            tableBody.classList.add('d-none');
             return;
         }
-        
+
         // Generate table rows
         const rows = students.map(student => {
+            if (!student || typeof student !== 'object') return ''; // Skip invalid entries
+
             const fullName = `${student.firstName || ''} ${student.middleName || ''} ${student.lastName || ''}`.trim();
             const classSection = `${student.admissionClass || ''}-${student.section || ''}`;
-            
-            // Status badge
+
             let statusBadge = '';
             if (student.status === 'Active') {
                 statusBadge = '<span class="badge bg-success">Active</span>';
@@ -177,10 +201,10 @@ function displayStudents(students) {
             } else {
                 statusBadge = `<span class="badge bg-secondary">${student.status || 'Unknown'}</span>`;
             }
-            
+
             return `
                 <tr data-student-id="${student.id}">
-                    <td>${student.id}</td>
+                    <td>${student.id || ''}</td>
                     <td>${fullName}</td>
                     <td>${classSection}</td>
                     <td>${student.rollNo || ''}</td>
@@ -202,19 +226,16 @@ function displayStudents(students) {
                 </tr>
             `;
         }).join('');
-        
+
         // Update table body
-        if (tableBody) {
-            tableBody.innerHTML = rows;
-            tableBody.classList.remove('d-none');
-        }
-        
+        tableBody.innerHTML = rows;
+        tableBody.classList.remove('d-none');
+
         // Initialize tooltips
         const tooltips = document.querySelectorAll('[data-bs-toggle="tooltip"]');
         tooltips.forEach(tooltip => {
             new bootstrap.Tooltip(tooltip);
         });
-        
     }, 500); // Simulate loading for 500ms
 }
 
@@ -277,8 +298,16 @@ function setupStudentActionButtons() {
             loadPage('admission-single');
         });
     }
+
+    const addBulkStudentBtn = document.getElementById('bulk-add-student');
+    if(addBulkStudentBtn)
+    {
+        addBulkStudentBtn.addEventListener('click', () => {
+            loadPage('admission-bulk');
+        })
+    }
     
-    // Export students button
+    // Export students button 
     const exportStudentsBtn = document.getElementById('export-students');
     if (exportStudentsBtn) {
         exportStudentsBtn.addEventListener('click', () => {
@@ -356,8 +385,8 @@ function setupStudentActionButtons() {
  * Show student profile in a modal
  * @param {string} studentId - The student ID
  */
-function viewStudentProfile(studentId) {
-    const student = getStudentById(studentId);
+async function viewStudentProfile(studentId) {
+    const student = await getStudentById(studentId); // Await the promise to resolve
     if (!student) {
         showAlert('Student not found', 'danger');
         return;
@@ -434,14 +463,14 @@ function editStudent(studentId) {
         showAlert('Student not found', 'danger');
         return;
     }
-    
+
     // Get edit modal
     const modal = document.getElementById('editStudentModal');
     if (!modal) return;
-    
+
     // Set student ID to hidden field
     document.getElementById('edit-student-id').value = studentId;
-    
+
     // Set form values
     document.getElementById('edit-firstName').value = student.firstName || '';
     document.getElementById('edit-middleName').value = student.middleName || '';
@@ -449,19 +478,17 @@ function editStudent(studentId) {
     document.getElementById('edit-dateOfBirth').value = student.dateOfBirth || '';
     document.getElementById('edit-gender').value = student.gender || '';
     document.getElementById('edit-bloodGroup').value = student.bloodGroup || '';
-    document.getElementById('edit-class').value = student.admissionClass || '';
+    document.getElementById('edit-admissionClass').value = student.admissionClass || '';
     document.getElementById('edit-section').value = student.section || '';
     document.getElementById('edit-rollNo').value = student.rollNo || '';
     document.getElementById('edit-address').value = student.address || '';
     document.getElementById('edit-city').value = student.city || '';
     document.getElementById('edit-pinCode').value = student.pinCode || '';
-    document.getElementById('edit-mobileNumber').value = student.mobileNumber || '';
-    document.getElementById('edit-email').value = student.email || '';
+    document.getElementById('edit-whatsAppNumber').value = student.mobileNumber || '';
     document.getElementById('edit-fatherName').value = student.fatherName || '';
     document.getElementById('edit-motherName').value = student.motherName || '';
-    document.getElementById('edit-parentMobile').value = student.parentMobile || '';
-    document.getElementById('edit-status').value = student.status || 'Active';
-    
+    document.getElementById('edit-guardianName').value = student.guardianName || '';
+
     // Show modal
     const editModal = new bootstrap.Modal(modal);
     editModal.show();
@@ -738,4 +765,16 @@ function deleteStudent(studentId) {
     } else {
         showAlert('Failed to delete student', 'danger');
     }
+}
+
+/**
+ * Method to populate fees section in the edit modal
+ */
+function populateFeesSection(feesData) {
+    document.getElementById('edit-feeType').value = feesData.feeType || 'Regular';
+    document.getElementById('edit-scholarshipAmount').value = feesData.scholarshipAmount || '';
+    document.getElementById('edit-scholarshipAmount').disabled = feesData.feeType !== 'Scholarship';
+    document.getElementById('edit-addmissionFees').value = feesData.addmissionFees || '';
+    document.getElementById('edit-monthelyFees').value = feesData.monthelyFees || '';
+    document.getElementById('edit-busServices').value = feesData.busServices || '';
 }
